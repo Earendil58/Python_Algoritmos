@@ -37,15 +37,12 @@ def principal():
             if posicion_letras >= 3 and tieneMB(letra):
                 tiene_m_b_desde_tercera_letra += 1
                 
-            if posicion_letras == 1 and letra == 'p':
-                anterior = letra
+            if posicion_letras == 2 and anterior == 'p' and tieneVocal(letra):
+                palabra_comienza_p_sigue_vocal += 1
                 
                 
-            
-            if anterior and tieneVocal(letra):
-                 palabra_comienza_p_sigue_vocal += 1
                 
-            
+            anterior = letra
                 
     
     
