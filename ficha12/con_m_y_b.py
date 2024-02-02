@@ -22,12 +22,21 @@ def principal():
     anterior = ''
     palabra_comienza_p_sigue_vocal = 0
     cant_palabras = 0
+    primer_caracter = ''
+    ultimo_caracter = ''
+    palabras_empiezan_terminan_mismo_caracter = 0
     
     texto = input('Ingrese el texto a analizar: ')
     
     for letra in texto:
         
         if letra == ' ' or letra == '.':
+            ultimo_caracter = anterior
+            
+            if primer_caracter == ultimo_caracter:
+                palabras_empiezan_terminan_mismo_caracter += 1
+                
+                
             posicion_letras = 0
             
             
@@ -39,6 +48,11 @@ def principal():
                 
             if posicion_letras == 2 and anterior == 'p' and tieneVocal(letra):
                 palabra_comienza_p_sigue_vocal += 1
+            
+            if posicion_letras == 1:
+                primer_caracter = letra
+                
+            
                 
                 
                 
@@ -48,6 +62,7 @@ def principal():
     
     print(f'La cantidad de palabras que tienen "m" o "b" a partir de la tercera letra son: {tiene_m_b_desde_tercera_letra}')
     print(f'La cantidad de palabras que comienzan con "p" y siguen con una vocal, son: {palabra_comienza_p_sigue_vocal}')
+    print(f'La cantidad de palabras que empiezan y terminan con el mismo caracter son: {palabras_empiezan_terminan_mismo_caracter}')
     
 
 principal()
