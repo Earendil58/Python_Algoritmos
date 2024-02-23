@@ -13,3 +13,4 @@ print(arregloMulti(arreglo_1, 2))
 print(arregloMulti(arreglo_1, 3))
 
 print(arregloMulti(arreglo_1, 200))
+
