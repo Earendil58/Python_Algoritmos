@@ -1,9 +1,9 @@
-def leerArreglo(v):
-    vector = [0] * v
-    for i in range(v):
-        vector[i] = int(input(f'Ingrese el componente [{i + 1}] del vector: '))
+arreglo_1 = [1,2,3]
+arreglo_2 = [2,4,6]
 
-    print(vector)
+sumatorio_arreglos = []
 
+for x in range(arreglo_1):
+    sumatorio_arreglos[x] = arreglo_1[x] + arreglo_2[x]
 
-leerArreglo(5)
+print(sumatorio_arreglos)

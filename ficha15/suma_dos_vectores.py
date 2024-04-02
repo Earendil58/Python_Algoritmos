@@ -18,7 +18,9 @@ def main():
         vector = ingresar_vector()
         vector_resultante.append(vector)
 
-    print(vector_resultante)
+    print("Vectores resultantes:")
+    for i, vector in enumerate(vector_resultante, 1):
+        print(f"Vector {i}: {vector}")
 
 
 if __name__ == "__main__":
