@@ -9,14 +9,16 @@ def impares_multiplos_tres(limite_derecho):
 
 def numero_primo_en_intervalo(a,b):
     if a > 1 and b > a:
-        es_primo = True
         primos = []
         for numero in range(a, b + 1):
-            for divisor in range(2, b):
+            es_primo = True
+            for divisor in range(2, numero):
                 if numero % divisor == 0:
                     es_primo = False
+                    break
             if es_primo:
                 primos.append(numero)
+        return primos
     else:
         print('Los valores proporcionados deben ser positivos. B debe ser mayor que A.')
 
@@ -43,6 +45,13 @@ def test():
         limite = int(input('Ingrese un limite para chequear impares y múltiplos de 3, en el intervalo: '))
         output_opcion_uno = impares_multiplos_tres(limite)
         print(output_opcion_uno)
+
+    elif opcion == 2:
+        primer_numero = int(input('Ingrese el primer número del intervalo: '))
+        segundo_numero = int(input('Ingrese el segundo número del intervalo: '))
+        output_numeros_primos = numero_primo_en_intervalo(primer_numero, segundo_numero)
+        print(output_numeros_primos)
+
 
 
 
