@@ -12,47 +12,51 @@ cp = cp.upper()
 letras = 'ABCDEFGHJKLMNPQRSTUVWXYZ' #LETRAS I/O NO SE UTILIZAN
 numeros = '0123456789'
 longitud_cp = len(cp)
-pais = ''
+destino = ''
 
-if 4 < longitud_cp < 9:
-    pais = 'Otro'
+if 4 < longitud_cp > 9:
+    destino = 'Otro'
 
 else:
     if longitud_cp == 8:
         if (cp[0] in letras) and (cp[1] in numeros) and (cp[2] in numeros) and (cp[3] in numeros) and (cp[4] in numeros) and (cp[5] in letras) and (cp[6] in letras) and (cp[7] in letras):
-            pais = 'Argentina'
+            destino = 'Argentina'
         else:
-            pais = 'Otro'
+            destino = 'Otro'
 
     elif longitud_cp == 4:
         if (cp[0] in numeros) and (cp[1] in numeros) and (cp[2] in numeros) and (cp[3] in numeros):
-            pais = 'Bolivia'
+            destino = 'Bolivia'
         else:
-            pais = 'Otro'
+            destino = 'Otro'
 
     elif longitud_cp == 9:
         if (cp[0] in numeros) and (cp[1] in numeros) and (cp[2] in numeros) and (cp[3] in numeros) and (cp[4] in numeros) and (cp[5] == '-') and (cp[6] in numeros) and (cp[7] in numeros) and (cp[8] in numeros):
-            pais = 'Brasil'
+            destino = 'Brasil'
         else:
-            pais = 'Otro'
+            destino = 'Otro'
 
     elif longitud_cp == 7:
         if (cp[0] in numeros) and (cp[1] in numeros) and (cp[2] in numeros) and (cp[3] in numeros) and (cp[4] in numeros) and (cp[5] in numeros) and (cp[6] in numeros):
-            pais = 'Chile'
+            destino = 'Chile'
         else:
-            pais = 'Otro'
+            destino = 'Otro'
 
     elif longitud_cp == 6:
         if (cp[0] in numeros) and (cp[1] in numeros) and (cp[2] in numeros) and (cp[3] in numeros) and (cp[4] in numeros) and (cp[5] in numeros):
-            pais = 'Paraguay'
+            destino = 'Paraguay'
         else:
-            pais = 'Otro'
+            destino = 'Otro'
 
     elif longitud_cp == 5:
         if (cp[0] in numeros) and (cp[1] in numeros) and (cp[2] in numeros) and (cp[3] in numeros) and (cp[4] in numeros):
-            pais = 'Uruguay'
+            destino = 'Uruguay'
         else:
-            pais = 'Otro'
+            destino = 'Otro'
 
 
 
+
+
+
+print("País de destino del envío:", destino)
