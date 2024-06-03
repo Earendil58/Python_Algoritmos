@@ -1,82 +1,46 @@
-import random
-
-print('Seleccione algunas de las siguientes opciones: ')
-print('-' * 95)
-print('Opción 1: Calcular promedio de 1.000 números aleatorios generados en el rango de [0, 100.000].')
-print('-' * 95)
-print('Opción 2: Buscar el mayor de 10.000 números aleatorios generados en el rango de [0, 100.000].')
-print('-' * 95)
-print('''Opción 3: Buscar el menor de 5.000 números aleatorios generados en el rango de [0, 100.000] y 
-          calcular el valor promedio de los números menores a 10.000.''')
-print('-' * 95)
-print('Cualquier otro número que ingrese, hará que salga de programa.')
-print('-' * 95)
-
-opcion = int(input('Ingrese algunas de las opciones anteriormente descriptas: '))
-
-while 0 < opcion < 4:
-    if opcion == 1:
-        sumatorio = 0
-        i = 0
-        while i < 1000:
-            i += 1
-            numero_aleatorio = random.randint(0,100_000)
-            sumatorio += numero_aleatorio
-
-        promedio = sumatorio // i
-        print(f'El promedio de los 1.000 números aleatorios generados en el rango de [0, 100.000], es: {promedio} ')
-
-
-    elif opcion == 2:
-        i = 0
-        mayor = -0.1
-        while i < 10_000:
-            numero_aleatorio = random.randint(0,100_000)
-
-            if numero_aleatorio > mayor:
-                mayor = numero_aleatorio
-
-            i+= 1
-
-        print(f'El mayor de los números aleatorios entre [0,100.000] es: {mayor}')
-
-
-    elif opcion == 3:
-        i = 0
-        menor = 100_001
-        mayores_diezmil = 0
-        mayores_diezmil_sumatorio = 0
-        while i < 5000:
-            numero_aleatorio = random.randint(0,100_000)
-
-            if numero_aleatorio > 10000:
-                mayores_diezmil += 1
-                mayores_diezmil_sumatorio += numero_aleatorio
-
-            if numero_aleatorio < menor:
-                menor = numero_aleatorio
-
-            i += 1
-        print(f'El menor de los números aleatorios entre [0,100.000] es: {menor}')
-        promedio_valores_diezmil = round(mayores_diezmil_sumatorio / mayores_diezmil, 2)
-        print(f'El promedio de los números mayores a 10.000 es de : {promedio_valores_diezmil}')
+#
+# cant_ciclistas = int(input('Ingrese la cant de competidores: '))
+# tiempo_record = float(input('Ingrese el tiempo record de la carrera: '))
+# menor_tiempo = None
+# menor_tiempo_participante = ''
+# rompio_record = False
+# sumatoria_tiempos = 0
+#
+# for competidor in range(cant_ciclistas):
+#     nombre = input('Ingrese el nombre del competidor: ')
+#     tiempo_carrera = float(input('Ingrese el tiempo del competidor: '))
+#
+#     sumatoria_tiempos += tiempo_carrera
+#
+#     if menor_tiempo is None:
+#         menor_tiempo = tiempo_carrera
+#
+#
+#     if tiempo_carrera < menor_tiempo:
+#         menor_tiempo = tiempo_carrera
+#         menor_tiempo_participante = nombre
+#
+#     if menor_tiempo < tiempo_record:
+#         rompio_record = True
+#
+#
+# promedio_tiempos_carrera = sumatoria_tiempos // cant_ciclistas
+#
+#
+#
+# print(f'El ganador de la carrera es: {menor_tiempo_participante}')
+# print(f'El tiempo que realizó fue de: {menor_tiempo}')
+# if rompio_record:
+#     print(f'Se rompió el record anterior, que era de: {tiempo_record}, el nuevo record es: {menor_tiempo}')
+#
+# print(f'El tiempo promedio de carrera, fue de: {promedio_tiempos_carrera}')
 
 
 
-    print()
-    print()
-    print('Seleccione algunas de las siguientes opciones: ')
-    print('-' * 95)
-    print('Opción 1: Calcular promedio de 1.000 números aleatorios generados en el rango de [0, 100.000].')
-    print('-' * 95)
-    print('Opción 2: Buscar el mayor de 10.000 números aleatorios generados en el rango de [0, 100.000].')
-    print('-' * 95)
-    print('''Opción 3: Buscar el menor de 5.000 números aleatorios generados en el rango de [0, 100.000] y 
-              calcular el valor promedio de los números menores a 10.000.''')
-    print('-' * 95)
-    print('Cualquier otro número que ingrese, hará que salga de programa.')
-    print('-' * 95)
-    opcion = int(input('Ingrese algunas de las opciones anteriormente descriptas: '))
 
 
-print('Fin del programa')
+
+
+
+
+
