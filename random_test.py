@@ -1,35 +1,30 @@
-semestre = 6
-sueldo = 0
-sueldo_mayor = 0
-mes_sueldo_mayor = 0
-sueldo_menor = None
-mes_sueldo_menor = None
-sumatoria_sueldos = 0
-meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octobre', 'Noviembre', 'Diciembre']
+import random
 
-for mes in range(semestre):
-    sueldo = float(input('Ingrese el sueldo correspodiente al mes: '))
-    sumatoria_sueldos += sueldo
+mayor_par = None
+menor_impar = None
+numeros_aleatorios = []
 
-    if sueldo > sueldo_mayor:
-        sueldo_mayor = sueldo
-        mes_sueldo_mayor = mes
+for numero in range(1,9):
+    numero_aleatorio = random.randint(1,100)
+    numeros_aleatorios.append(numero_aleatorio)
 
-    if sueldo_menor is None:
-        sueldo_menor = sueldo
+    if mayor_par is None and numero_aleatorio % 2 == 0:
+        mayor_par = numero_aleatorio
 
-    if sueldo < sueldo_menor:
-        sueldo_menor = sueldo
-        mes_sueldo_menor = mes
+    else:
+        if ((numero_aleatorio % 2) == 0) and (numero_aleatorio > mayor_par):
+            mayor_par = numero_aleatorio
 
 
+    if menor_impar is None and numero_aleatorio % 2 !=0:
+        menor_impar = numero_aleatorio
+
+    else:
+        if ((numero_aleatorio % 2) != 0) and (numero_aleatorio < menor_impar):
+            menor_impar = numero_aleatorio
 
 
-aguinaldo = sueldo_mayor / 2
-promedio_sueldo = sumatoria_sueldos / semestre
 
-
-print(f'El aguinaldo es de: ${aguinaldo}')
-print(f'El monto más alto percenece al mes de: {meses[mes_sueldo_mayor]}')
-print(f'El sueldo menor se recibió en el mes: {meses[mes_sueldo_menor]}')
-print(f'El promedio de los sueldos obtenidos en el semestre es de : {promedio_sueldo}')
+print(f'Los números aleatorios fueron: {numeros_aleatorios}')
+print(f'El mayor de los números pares es: {mayor_par}')
+print(f'El menor de los números impares es: {menor_impar}')
