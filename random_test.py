@@ -1,46 +1,35 @@
-#
-# cant_ciclistas = int(input('Ingrese la cant de competidores: '))
-# tiempo_record = float(input('Ingrese el tiempo record de la carrera: '))
-# menor_tiempo = None
-# menor_tiempo_participante = ''
-# rompio_record = False
-# sumatoria_tiempos = 0
-#
-# for competidor in range(cant_ciclistas):
-#     nombre = input('Ingrese el nombre del competidor: ')
-#     tiempo_carrera = float(input('Ingrese el tiempo del competidor: '))
-#
-#     sumatoria_tiempos += tiempo_carrera
-#
-#     if menor_tiempo is None:
-#         menor_tiempo = tiempo_carrera
-#
-#
-#     if tiempo_carrera < menor_tiempo:
-#         menor_tiempo = tiempo_carrera
-#         menor_tiempo_participante = nombre
-#
-#     if menor_tiempo < tiempo_record:
-#         rompio_record = True
-#
-#
-# promedio_tiempos_carrera = sumatoria_tiempos // cant_ciclistas
-#
-#
-#
-# print(f'El ganador de la carrera es: {menor_tiempo_participante}')
-# print(f'El tiempo que realizó fue de: {menor_tiempo}')
-# if rompio_record:
-#     print(f'Se rompió el record anterior, que era de: {tiempo_record}, el nuevo record es: {menor_tiempo}')
-#
-# print(f'El tiempo promedio de carrera, fue de: {promedio_tiempos_carrera}')
+semestre = 6
+sueldo = 0
+sueldo_mayor = 0
+mes_sueldo_mayor = 0
+sueldo_menor = None
+mes_sueldo_menor = None
+sumatoria_sueldos = 0
+meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octobre', 'Noviembre', 'Diciembre']
+
+for mes in range(semestre):
+    sueldo = float(input('Ingrese el sueldo correspodiente al mes: '))
+    sumatoria_sueldos += sueldo
+
+    if sueldo > sueldo_mayor:
+        sueldo_mayor = sueldo
+        mes_sueldo_mayor = mes
+
+    if sueldo_menor is None:
+        sueldo_menor = sueldo
+
+    if sueldo < sueldo_menor:
+        sueldo_menor = sueldo
+        mes_sueldo_menor = mes
 
 
 
 
+aguinaldo = sueldo_mayor / 2
+promedio_sueldo = sumatoria_sueldos / semestre
 
 
-
-
-
-
+print(f'El aguinaldo es de: ${aguinaldo}')
+print(f'El monto más alto percenece al mes de: {meses[mes_sueldo_mayor]}')
+print(f'El sueldo menor se recibió en el mes: {meses[mes_sueldo_menor]}')
+print(f'El promedio de los sueldos obtenidos en el semestre es de : {promedio_sueldo}')
