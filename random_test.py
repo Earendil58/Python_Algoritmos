@@ -1,30 +1,36 @@
-import random
+print('DIRECCIÓN DE TRÁNSITO')
+patente = input('Ingrese patente (sin espacios intermedios): ')
+print('-' * 80)
 
-mayor_par = None
-menor_impar = None
-numeros_aleatorios = []
+# Validar formato
+ok = True
+if len(patente) == 6:
+    print('Formato antiguo')
+elif len(patente) == 7:
+    print('Formato nuevo')
+else:
+    print('Formato INVÁLIDO!')
+    ok = False
 
-for numero in range(1,9):
-    numero_aleatorio = random.randint(1,100)
-    numeros_aleatorios.append(numero_aleatorio)
+# Validar caracteres
+if ok:
+    pos = 0
+    for car in patente:
+        if (car >= 'A' and car <= 'Z') or (car >= 'a' and car <= 'z'):
+            if len(patente) == 6 and pos >= 3:
+                ok = False
+            elif len(patente) == 7 and pos >= 2 and pos <= 4:
+                ok = False
+        elif car >= '0' and car <= '9':
+            if len(patente) == 6 and pos <= 2:
+                ok = False
+            elif len(patente) == 7 and (pos <= 1 or pos >= 5):
+                ok = False
+        else:
+            ok = False
+        pos += 1
 
-    if mayor_par is None and numero_aleatorio % 2 == 0:
-        mayor_par = numero_aleatorio
-
-    else:
-        if ((numero_aleatorio % 2) == 0) and (numero_aleatorio > mayor_par):
-            mayor_par = numero_aleatorio
-
-
-    if menor_impar is None and numero_aleatorio % 2 !=0:
-        menor_impar = numero_aleatorio
-
-    else:
-        if ((numero_aleatorio % 2) != 0) and (numero_aleatorio < menor_impar):
-            menor_impar = numero_aleatorio
-
-
-
-print(f'Los números aleatorios fueron: {numeros_aleatorios}')
-print(f'El mayor de los números pares es: {mayor_par}')
-print(f'El menor de los números impares es: {menor_impar}')
+if ok:
+    print('La patente es válida')
+else:
+    print('La patente NO es válida')
