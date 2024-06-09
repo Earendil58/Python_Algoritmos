@@ -20,24 +20,28 @@ tuvieron_ta = 0
 letra_anterior = ''
 letra_p = False
 letra_a = False
+aparecio_ta = False
 
 for letra in texto_normalizado:
 
     cant_letras += 1
 
     if letra == ' ' or letra == '.':
-        if cant_letras >= 1:
+        if cant_letras > 1:
             palabras_en_texto += 1
 
         es_primera_letra = True
+        cant_letras = 0
+        aparecio_ta = False
 
     else:
-        if es_primera_letra and letra == 'p':
+        if cant_letras == 1 and letra == 'p':
             comienza_p += 1
             es_primera_letra = False
 
-        if letra_anterior == 't' and letra == 'a':
+        if letra_anterior == 't' and letra == 'a' and not(aparecio_ta):
             tuvieron_ta += 1
+            aparecio_ta = True
 
     letra_anterior = letra
 
