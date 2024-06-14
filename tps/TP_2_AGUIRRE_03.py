@@ -1,25 +1,16 @@
 def leer_archivo():
-    tratar_archivo = open('envios25.txt', 'rt')
-    texto = tratar_archivo.read()
-    tratar_archivo.close()
+    with open('envios100HC.txt', 'rt') as tratar_archivo:
+        texto = tratar_archivo.read()
     return texto
 
 
-def chequeo_control(texto):
-    indice = 0
-    control_detectado = ''
-    tipo_de_control = ''
-    while indice < len(texto):
-        if texto[indice] == '\n':
-            break
-        control_detectado += texto[indice]
-        indice += 1
-    if 'HC' in control_detectado:
-        tipo_de_control = 'Hard Control'
-    elif 'SC' in control_detectado:
-        tipo_de_control = 'Soft Control'
-
-    return tipo_de_control
+def detectar_tipo_control(texto):
+    tipo_control = texto.split('\n', 1)[0]  # Obtener la primera línea
+    if 'HC' in tipo_control:
+        return 'Hard Control'
+    elif 'SC' in tipo_control:
+        return 'Soft Control'
+    return ''
 
 
 def obtener_linea(texto, inicio):
@@ -27,10 +18,12 @@ def obtener_linea(texto, inicio):
     while inicio < len(texto) and texto[inicio] != '\n':
         linea += texto[inicio]
         inicio += 1
-    return linea, inicio + 1
+    return linea.strip(), inicio + 1
 
 
 def procesar_linea_envio(linea_envio):
+    if len(linea_envio) < 31:
+        return None, None, None, None
     codigo_postal = linea_envio[:9].strip()
     direccion = linea_envio[9:29].strip()
     tipo_envio = int(linea_envio[29])
@@ -38,15 +31,14 @@ def procesar_linea_envio(linea_envio):
     return codigo_postal, direccion, tipo_envio, forma_pago
 
 
-
 def validar_direccion(direccion, tipo_control):
     if tipo_control == 'Hard Control':
         tiene_letras_y_digitos = False
         no_mayusculas_consecutivas = True
         palabra_digitos = False
+        contiene_digitos = False
         anterior = ''
         es_palabra = False
-        contiene_digitos = False
         indice = 0
 
         while indice < len(direccion):
@@ -59,7 +51,7 @@ def validar_direccion(direccion, tipo_control):
                 es_palabra = True
                 if 'A' <= anterior <= 'Z' and 'A' <= letra <= 'Z':
                     no_mayusculas_consecutivas = False
-            if letra == ' ' or letra == '-' or letra == '/' or letra == '#' or letra == '.':
+            if letra in ' -/#.':
                 if es_palabra and contiene_digitos:
                     palabra_digitos = True
                 es_palabra = False
@@ -74,26 +66,14 @@ def validar_direccion(direccion, tipo_control):
 
 
 def calcular_precio(tipo_envio, codigo_postal):
-    if tipo_envio == 0:
-        precio_base = 1100
-    elif tipo_envio == 1:
-        precio_base = 1800
-    elif tipo_envio == 2:
-        precio_base = 2450
-    elif tipo_envio == 3:
-        precio_base = 8300
-    elif tipo_envio == 4:
-        precio_base = 10900
-    elif tipo_envio == 5:
-        precio_base = 14300
-    elif tipo_envio == 6:
-        precio_base = 17900
+    precios_base = [1100, 1800, 2450, 8300, 10900, 14300, 17900]
+    precio_base = precios_base[tipo_envio] if tipo_envio < len(precios_base) else 0
 
     pais = determinar_pais(codigo_postal)
     if pais != 'Argentina':
-        if pais == 'Bolivia' or pais == 'Paraguay' or pais == 'Uruguay':
+        if pais in ['Bolivia', 'Paraguay', 'Uruguay']:
             precio_base *= 1.2
-        elif pais == 'Chile' or pais == 'Brasil':
+        elif pais in ['Chile', 'Brasil']:
             precio_base *= 1.25
         else:
             precio_base *= 1.5
@@ -102,39 +82,30 @@ def calcular_precio(tipo_envio, codigo_postal):
 
 
 def determinar_pais(codigo_postal):
-    if '0' <= codigo_postal[0] <= '9':
+    if codigo_postal and '0' <= codigo_postal[0] <= '9':
         return 'Argentina'
     return 'Otro'
 
 
 def determinar_provincia(codigo_postal):
-    if codigo_postal != '' and codigo_postal[0] == 'B':
+    if codigo_postal and codigo_postal[0] == 'B':
         return 'Buenos Aires'
     return 'Otra'
 
 
-
 def main():
     texto = leer_archivo()
-    tipo_control_texto = chequeo_control(texto)
+    tipo_control = detectar_tipo_control(texto)
+    indice = texto.find('\n') + 1  # Saltar la línea de tipo de control
 
-
-    tipo_control = tipo_control_texto
-    indice = 0
-    validos = 0
-    invalidos = 0
-    total_importe = 0
-    cartas_simples = 0
-    cartas_certificadas = 0
-    cartas_expresas = 0
-    primer_cp = ""
-    contador_primer_cp = 0
-    menor_importe_brasil = 9999999  # Un número muy grande
+    # Variables de estadísticas
+    validos, invalidos, total_importe = 0, 0, 0
+    cartas_simples, cartas_certificadas, cartas_expresas = 0, 0, 0
+    primer_cp, contador_primer_cp = "", 0
+    menor_importe_brasil = float('inf')
     cp_menor_importe_brasil = ""
-    total_envios = 0
-    total_envios_exterior = 0
-    total_importe_buenos_aires = 0
-    envios_buenos_aires = 0
+    total_envios, total_envios_exterior = 0, 0
+    total_importe_buenos_aires, envios_buenos_aires = 0, 0
 
     while indice < len(texto):
         linea, nuevo_indice = obtener_linea(texto, indice)
@@ -144,6 +115,9 @@ def main():
             continue
 
         cp, direccion, tipo_envio, forma_pago = procesar_linea_envio(linea)
+        if cp is None:
+            continue
+
         es_valido = validar_direccion(direccion, tipo_control)
 
         if es_valido:
@@ -158,7 +132,7 @@ def main():
             elif tipo_envio == 2:
                 cartas_expresas += 1
 
-            if primer_cp == "":
+            if not primer_cp:
                 primer_cp = cp
                 contador_primer_cp = 1
             elif primer_cp == cp:
@@ -186,15 +160,8 @@ def main():
     elif cartas_expresas > cartas_simples and cartas_expresas > cartas_certificadas:
         tipo_carta_mayor_envios = 'Carta Expresa'
 
-    if total_envios > 0:
-        porcentaje_exterior = (total_envios_exterior * 100) // total_envios
-    else:
-        porcentaje_exterior = 0
-
-    if envios_buenos_aires > 0:
-        promedio_buenos_aires = total_importe_buenos_aires // envios_buenos_aires
-    else:
-        promedio_buenos_aires = 0
+    porcentaje_exterior = (total_envios_exterior * 100) // total_envios if total_envios else 0
+    promedio_buenos_aires = total_importe_buenos_aires // envios_buenos_aires if envios_buenos_aires else 0
 
     print("Tipo de Control:", tipo_control)
     print("Envíos válidos:", validos)
@@ -213,5 +180,3 @@ def main():
 
 
 main()
-
-
