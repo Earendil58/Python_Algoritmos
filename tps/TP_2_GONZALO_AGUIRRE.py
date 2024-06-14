@@ -21,16 +21,42 @@ def tipo_control(texto):
         anterior = letra
 
 
-def hard_control(texto):
 
-    texto_normalizado = texto.lower().strip()
+def procesar_oracion(texto):
+    oracion = ''
+    indice = 0
+    longitud_texto = len(texto)
+
+    while indice < longitud_texto:
+        caracter = texto[indice]
+
+        if caracter == '\n':
+            if oracion:
+                print(oracion.strip())
+                oracion = ''
+        else:
+            oracion += caracter
+
+        indice += 1
+
+    if oracion:
+        print(oracion)
+
+
+def hard_control(oracion):
+
+    texto_normalizado = oracion.lower()
 
     caracter_especial = False
+    tuvo_mayuscula = False
     mayusculas_consecutivas = False
     palabra_compuesta_solo_digitos = False
 
     for letra in texto_normalizado:
+        if 'A' >= letra >= 'Z' or 'a' >= letra >= 'z':
+            caracter_especial = True
 
+        if letra 
 
 
 
