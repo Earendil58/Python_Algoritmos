@@ -1,182 +1,189 @@
-def leer_archivo():
-    with open('envios100HC.txt', 'rt') as tratar_archivo:
-        texto = tratar_archivo.read()
-    return texto
+#ENTRADAS
+tipo_control = primercod_pos = ""
+direcciones_validas = direcciones_invalidas = acumulador_importe_final = carta_simple = carta_certificada = carta_expresa = 0
 
+def obtener_tipo_control(linea):
+    if "HC" in linea or "hc" in linea:
+        return "Hard Control"
+    elif "SC" in linea or "sc" in linea:
+        return "Soft Control"
+    return ""
 
-def detectar_tipo_control(texto):
-    tipo_control = texto.split('\n', 1)[0]  # Obtener la primera línea
-    if 'HC' in tipo_control:
-        return 'Hard Control'
-    elif 'SC' in tipo_control:
-        return 'Soft Control'
-    return ''
+def linea_sin_saltos(linea):
+    return linea.rstrip('\n')
 
+def extraer_datos(linea):
+    return linea[0:9].strip(), linea[9:29].strip(), int(linea[29]), int(linea[30])
 
-def obtener_linea(texto, inicio):
-    linea = ''
-    while inicio < len(texto) and texto[inicio] != '\n':
-        linea += texto[inicio]
-        inicio += 1
-    return linea.strip(), inicio + 1
+def controlar_direcciones(dir, tipo_control, cod_pos, tipo, forma):
+    control = tipo_control
+    digitos = "0123456789"
+    letras_con_acento_minusculas = "áéíóúñü"
+    letras_con_acento_mayusculas = "ÁÉÍÓÚÑÜ"
+    letras_sin_acento_minusculas = "abcdefghijklmnopqrstuvwxyz"
+    letras_sin_acento_mayusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    caracteres = digitos + letras_con_acento_minusculas + letras_con_acento_mayusculas + letras_sin_acento_minusculas + letras_sin_acento_mayusculas + " ."
+    mayusculas = letras_con_acento_mayusculas + letras_sin_acento_mayusculas
 
+    tiene_dos_mayusculas_seguidas = False
+    boolEsDigito = False
+    contador = 0
+    anterior = " "
 
-def procesar_linea_envio(linea_envio):
-    if len(linea_envio) < 31:
-        return None, None, None, None
-    codigo_postal = linea_envio[:9].strip()
-    direccion = linea_envio[9:29].strip()
-    tipo_envio = int(linea_envio[29])
-    forma_pago = int(linea_envio[30])
-    return codigo_postal, direccion, tipo_envio, forma_pago
+    for car in dir:
+        if car in caracteres:
+            contador += 1
+            if car in digitos:
+                boolEsDigito = True
+            elif car in mayusculas and anterior in mayusculas:
+                tiene_dos_mayusculas_seguidas = True
+            anterior = car
 
-
-def validar_direccion(direccion, tipo_control):
-    if tipo_control == 'Hard Control':
-        tiene_letras_y_digitos = False
-        no_mayusculas_consecutivas = True
-        palabra_digitos = False
-        contiene_digitos = False
-        anterior = ''
-        es_palabra = False
-        indice = 0
-
-        while indice < len(direccion):
-            letra = direccion[indice]
-            if '0' <= letra <= '9':
-                contiene_digitos = True
-                es_palabra = True
-            if ('a' <= letra <= 'z') or ('A' <= letra <= 'Z'):
-                tiene_letras_y_digitos = True
-                es_palabra = True
-                if 'A' <= anterior <= 'Z' and 'A' <= letra <= 'Z':
-                    no_mayusculas_consecutivas = False
-            if letra in ' -/#.':
-                if es_palabra and contiene_digitos:
-                    palabra_digitos = True
-                es_palabra = False
-                contiene_digitos = False
-            anterior = letra
-            indice += 1
-
-        return tiene_letras_y_digitos and no_mayusculas_consecutivas and palabra_digitos
-    elif tipo_control == 'Soft Control':
-        return True
-    return False
-
-
-def calcular_precio(tipo_envio, codigo_postal):
-    precios_base = [1100, 1800, 2450, 8300, 10900, 14300, 17900]
-    precio_base = precios_base[tipo_envio] if tipo_envio < len(precios_base) else 0
-
-    pais = determinar_pais(codigo_postal)
-    if pais != 'Argentina':
-        if pais in ['Bolivia', 'Paraguay', 'Uruguay']:
-            precio_base *= 1.2
-        elif pais in ['Chile', 'Brasil']:
-            precio_base *= 1.25
+    if control == "Hard Control":
+        if len(dir) == contador and not tiene_dos_mayusculas_seguidas and boolEsDigito:
+            return 1, 0, cod_pos, tipo, forma
         else:
-            precio_base *= 1.5
+            return 0, 1, cod_pos, tipo, forma
+    elif control == "Soft Control":
+        return 1, 0, cod_pos, tipo, forma
 
-    return precio_base
+    return 0, 1, (), (), ()
 
+def acumulador_de_importes(cp, tipo, pago):
+    inicial = 0
+    destino = "Otro"
+    destino_BA = False
+    cp_len = len(cp)
 
-def determinar_pais(codigo_postal):
-    if codigo_postal and '0' <= codigo_postal[0] <= '9':
-        return 'Argentina'
-    return 'Otro'
+    if cp_len == 8 and cp[0].isalpha() and cp[1:5].isdigit() and cp[5:].isalpha():
+        destino = "Argentina"
+    elif cp_len == 4 and cp.isdigit():
+        destino = "Bolivia"
+    elif cp_len == 9 and cp[:5].isdigit() and cp[6:].isdigit() and cp[5] == "-":
+        destino = "Brasil"
+    elif cp_len == 7 and cp.isdigit():
+        destino = "Chile"
+    elif cp_len == 6 and cp.isdigit():
+        destino = "Paraguay"
+    elif cp_len == 5 and cp.isdigit():
+        destino = "Uruguay"
 
+    if tipo == 0:
+        inicial = 1100
+    elif tipo == 1:
+        inicial = 1800
+    elif tipo == 2:
+        inicial = 2450
+    elif tipo == 3:
+        inicial = 8300
+    elif tipo == 4:
+        inicial = 10900
+    elif tipo == 5:
+        inicial = 14300
+    elif tipo == 6:
+        inicial = 17900
 
-def determinar_provincia(codigo_postal):
-    if codigo_postal and codigo_postal[0] == 'B':
-        return 'Buenos Aires'
-    return 'Otra'
+    if destino == "Argentina" and cp[0] == 'B':
+        destino_BA = True
+    else:
+        aumentos = {
+            "Uruguay": 0.20 if cp[0] == "1" else 0.25,
+            "Bolivia": 0.20,
+            "Paraguay": 0.20,
+            "Chile": 0.25,
+            "Brasil": 0.30 if cp[0] in "4567" else 0.25 if cp[0] in "0123" else 0.20
+        }
+        inicial += inicial * aumentos.get(destino, 0.50)
 
+    if pago == 1:
+        inicial -= inicial * 0.10
 
-def main():
-    texto = leer_archivo()
-    tipo_control = detectar_tipo_control(texto)
-    indice = texto.find('\n') + 1  # Saltar la línea de tipo de control
+    carta_simple = carta_certificada = carta_expresa = 0
+    if tipo in [0, 1, 2]:
+        carta_simple = 1
+    elif tipo in [3, 4]:
+        carta_certificada = 1
+    elif tipo in [5, 6]:
+        carta_expresa = 1
 
-    # Variables de estadísticas
-    validos, invalidos, total_importe = 0, 0, 0
-    cartas_simples, cartas_certificadas, cartas_expresas = 0, 0, 0
-    primer_cp, contador_primer_cp = "", 0
-    menor_importe_brasil = float('inf')
-    cp_menor_importe_brasil = ""
-    total_envios, total_envios_exterior = 0, 0
-    total_importe_buenos_aires, envios_buenos_aires = 0, 0
+    return inicial, carta_simple, carta_certificada, carta_expresa, destino != "Argentina", "Provincia de Buenos Aires" if destino_BA else "Otro"
 
-    while indice < len(texto):
-        linea, nuevo_indice = obtener_linea(texto, indice)
-        indice = nuevo_indice
+def calcular_mayor_entre_cartas(ccs, ccc, cce):
+    if ccs >= ccc and ccs >= cce:
+        return "Carta Simple"
+    elif ccc >= ccs and ccc >= cce:
+        return "Carta Certificada"
+    else:
+        return "Carta Expresa"
 
-        if linea == '':
-            continue
+def calcular_porcentaje_promedio(total_envios, ctotal_envios_exterior, monto_BA, cenvios_BA):
+    porcentaje = (ctotal_envios_exterior * 100) // total_envios if total_envios else 0
+    promedio = monto_BA // cenvios_BA if cenvios_BA else 0
+    return porcentaje, promedio
 
-        cp, direccion, tipo_envio, forma_pago = procesar_linea_envio(linea)
-        if cp is None:
-            continue
+def identificar_cp_brasil(cp):
+    return "Brasil" if len(cp) == 9 and cp[:5].isdigit() and cp[5] == "-" and cp[6:].isdigit() else ""
 
-        es_valido = validar_direccion(direccion, tipo_control)
+def principal(tipo_control, direcciones_validas, direcciones_invalidas, acumulador_importe_final, carta_simple, carta_certificada, carta_expresa):
+    with open("envios100HC.txt", "rt", encoding="utf-8") as archivo:
+        linea = archivo.readline()
+        tipo_control = obtener_tipo_control(linea)
+        linea = archivo.readline()
 
-        if es_valido:
-            validos += 1
-            precio = calcular_precio(tipo_envio, cp)
-            total_importe += precio
+        primercod_pos = cod_pos = ""
+        cont_primercod_pos = total_envios = ctotal_envios_exterior = cenvios_BA = 0
+        monto_BA = 0
+        menor = None
+        cp_brasil = ""
 
-            if tipo_envio == 0:
-                cartas_simples += 1
-            elif tipo_envio == 1:
-                cartas_certificadas += 1
-            elif tipo_envio == 2:
-                cartas_expresas += 1
+        while linea:
+            linea = linea_sin_saltos(linea)
+            cod_pos, dir, tipo, forma = extraer_datos(linea)
 
-            if not primer_cp:
-                primer_cp = cp
-                contador_primer_cp = 1
-            elif primer_cp == cp:
-                contador_primer_cp += 1
+            if primercod_pos == "":
+                primercod_pos = cod_pos
+            if cod_pos == primercod_pos:
+                cont_primercod_pos += 1
 
-            if determinar_pais(cp) == 'Brasil' and precio < menor_importe_brasil:
-                menor_importe_brasil = precio
-                cp_menor_importe_brasil = cp
+            dir_valida, dir_invalida, cod_pos, tipo, forma = controlar_direcciones(dir, tipo_control, cod_pos, tipo, forma)
+            direcciones_validas += dir_valida
+            direcciones_invalidas += dir_invalida
 
-            if determinar_provincia(cp) == 'Buenos Aires':
-                total_importe_buenos_aires += precio
-                envios_buenos_aires += 1
+            if cod_pos:
+                importe, c_simple, c_cert, c_expr, ext, prov = acumulador_de_importes(cod_pos, tipo, forma)
+                if prov == "Provincia de Buenos Aires":
+                    monto_BA += importe
+                    cenvios_BA += 1
+                acumulador_importe_final += importe
+                carta_simple += c_simple
+                carta_certificada += c_cert
+                carta_expresa += c_expr
 
-            if determinar_pais(cp) != 'Argentina':
-                total_envios_exterior += 1
+                if identificar_cp_brasil(cod_pos) == "Brasil" and (menor is None or importe < menor):
+                    menor = importe
+                    cp_brasil = cod_pos
 
-        else:
-            invalidos += 1
+                total_envios += 1
+                if ext:
+                    ctotal_envios_exterior += 1
 
-        total_envios += 1
+            linea = archivo.readline()
 
-    tipo_carta_mayor_envios = 'Carta Simple'
-    if cartas_certificadas > cartas_simples and cartas_certificadas > cartas_expresas:
-        tipo_carta_mayor_envios = 'Carta Certificada'
-    elif cartas_expresas > cartas_simples and cartas_expresas > cartas_certificadas:
-        tipo_carta_mayor_envios = 'Carta Expresa'
+    mayor = calcular_mayor_entre_cartas(carta_simple, carta_certificada, carta_expresa)
+    porcentaje, promedio = calcular_porcentaje_promedio(total_envios, ctotal_envios_exterior, monto_BA, cenvios_BA)
 
-    porcentaje_exterior = (total_envios_exterior * 100) // total_envios if total_envios else 0
-    promedio_buenos_aires = total_importe_buenos_aires // envios_buenos_aires if envios_buenos_aires else 0
+    return tipo_control, direcciones_validas, direcciones_invalidas, acumulador_importe_final, carta_simple, carta_certificada, carta_expresa, mayor, primercod_pos, cont_primercod_pos, menor, cp_brasil, porcentaje, promedio
 
-    print("Tipo de Control:", tipo_control)
-    print("Envíos válidos:", validos)
-    print("Envíos inválidos:", invalidos)
-    print("Importe total:", total_importe)
-    print("Cartas Simples:", cartas_simples)
-    print("Cartas Certificadas:", cartas_certificadas)
-    print("Cartas Expresas:", cartas_expresas)
-    print("Tipo de carta con mayor envíos:", tipo_carta_mayor_envios)
-    print("Primer CP:", primer_cp)
-    print("Veces que apareció el primer CP:", contador_primer_cp)
-    print("Menor importe a Brasil:", menor_importe_brasil)
-    print("CP menor importe a Brasil:", cp_menor_importe_brasil)
-    print("Porcentaje de envíos al exterior:", porcentaje_exterior)
-    print("Promedio de envíos a Buenos Aires:", promedio_buenos_aires)
-
-
-main()
+tipo_control, direcciones_validas, direcciones_invalidas, acumulador_importe_final, carta_simple, carta_certificada, carta_expresa, mayor, primercod_pos, cont_primercod_pos, menor, cp_brasil, porcentaje, promedio = principal(tipo_control, direcciones_validas, direcciones_invalidas, acumulador_importe_final, carta_simple, carta_certificada, carta_expresa)
+#SALIDAS
+print(' (r1) - Tipo de control de direcciones:', tipo_control)
+print(' (r2) - Cantidad de envios con direccion valida:', direcciones_validas)
+print(' (r3) - Cantidad de envios con direccion no valida:', direcciones_invalidas)
+print(' (r4) - Total acumulado de importes finales:', acumulador_importe_final)
+print(' (r5) - Tipo de carta con mayor cantidad de envios:', mayor)
+print(' (r6) - Codigo Postal de la direccion del primer envio:', primercod_pos)
+print(' (r7) - Cantidad de envios realizados al primer Codigo Postal:', cont_primercod_pos)
+print(' (r8) - El menor importe final de envios a Brasil:', menor)
+print(' (r9) - El Codigo Postal de la direccion con el menor importe de envio a Brasil:', cp_brasil)
+print(' (r10) - Porcentaje de envios al exterior:', porcentaje)
+print(' (r11) - Promedio de importes finales para la Provincia de Buenos Aires:', promedio)

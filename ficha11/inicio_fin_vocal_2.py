@@ -16,23 +16,24 @@ cant_palabras_comienzan_como_termino_palabra_anterior = 0
 for letra in texto_normalizado:
 
     if letra == ' ' or letra == '.':
+
         ultima_letra_palabra = anterior
+
+        print(f'la cant de letras es: {contador_letra}')
 
         if primera_letra_palabra == ultima_letra_palabra:
             cant_palabras_comienzan_como_termino_palabra_anterior += 1
 
-        primera_letra = True
         contador_letra = 0
-
+        primera_letra = True
 
     else:
         contador_letra += 1
-        if contador_letra > 1 and letra in vocales and primera_letra:
-            comienzan_vocal += 1
-            primera_letra_palabra = letra
 
-        primera_letra = False
-        anterior = letra
+        if primera_letra and letra in vocales and contador_letra != 1:
+            comienzan_vocal += 1
+            primera_letra = False
+            print(f'Esta es la letra que se contó como vocal: {letra}')
 
 
 print(f'La cant de palabras en el texto que comienzan con vocales son: {comienzan_vocal}')

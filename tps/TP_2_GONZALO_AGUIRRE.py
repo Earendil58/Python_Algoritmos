@@ -43,26 +43,26 @@ def procesar_oracion(texto):
         print(oracion)
 
 
-def hard_control(oracion):
-
-    texto_normalizado = oracion.lower()
-
-    caracter_especial = False
-    tuvo_mayuscula = False
-    mayusculas_consecutivas = False
-    palabra_compuesta_solo_digitos = False
-
-    for letra in texto_normalizado:
-        if 'A' >= letra >= 'Z' or 'a' >= letra >= 'z':
-            caracter_especial = True
-
-        if letra 
+# def hard_control(oracion):
+#
+#     texto_normalizado = oracion.lower()
+#
+#     caracter_especial = False
+#     tuvo_mayuscula = False
+#     mayusculas_consecutivas = False
+#     palabra_compuesta_solo_digitos = False
+#
+#     for letra in texto_normalizado:
+#         if 'A' >= letra >= 'Z' or 'a' >= letra >= 'z':
+#             caracter_especial = True
+#
+#         if letra
 
 
 
 
 def leer_archivo():
-    manejar_archivo = open('envios25.txt', 'rt')
+    manejar_archivo = open('envios100HC.txt', 'rt')
     texto = manejar_archivo.read()
     manejar_archivo.close()
     return texto
@@ -73,6 +73,7 @@ def main():
 
     tipo_de_control = tipo_control(texto)
 
+    print(texto)
     print(tipo_de_control)
 
 
