@@ -11,7 +11,7 @@
 texto = input('Ingrese el texto: ')
 texto_normalizado = texto.lower()
 
-vocales = 'aeiou'
+vocales = 'aeiouáéíóú'
 cant_vocales = 0
 cant_palabras_en_texto = 0
 cant_letras_por_palabra = 0
@@ -55,7 +55,7 @@ for letra in texto_normalizado:
 longitud_promedio_de_palabras_en_texto = sumatorio_cant_letras_por_palabra // cant_palabras_en_texto
 porcentaje_vocales_sobre_letras_totales_en_texto = round((cant_vocales * 100) / cant_letras_totales_en_texto, 2)
 
-
+print(f'La cantidad de vocales que aparecieron fueron: {cant_vocales}')
 print(f'La longitud, promedio, de palabras en el texto es de: {longitud_promedio_de_palabras_en_texto}')
 print(f'La longitud de la palabra más larga del texto es de: {longitud_palabra_mas_larga}')
 if aparecio_ta:
