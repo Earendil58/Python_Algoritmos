@@ -11,7 +11,6 @@ while len(texto) <= 0:
     texto = input('Ingrese el texto a analizar: ')
     if len(texto) <= 0:
         texto = input('Ingrese el texto a analizar: ')
-
 # comienza el procesamiento del texto ingresado por el usuario
 for c in texto:
     if c.isalpha():  # si es un caracter alfanumerico
