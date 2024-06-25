@@ -60,9 +60,10 @@ def principal():
                     if cant_caracter_por_palabra > longitud_palabra_mas_larga:
                         longitud_palabra_mas_larga = cant_caracter_por_palabra
 
-            if cant_consonantes > cant_vocales:
+            if cant_consonantes > cant_vocales and not tiene_a and not tiene_m:
                 cant_letras_consonantes += cant_caracter_por_palabra
                 cant_palabras_consonantes += 1
+
 
 
             cant_caracter_por_palabra = 0
@@ -70,6 +71,7 @@ def principal():
             letras_minusculas_dsp_de_caracter_numerico = True  # R1 FLAGS
             comienza_vocal = contiene_b = False  # R2 FLAGS
             cant_consonantes = cant_vocales = 0  # R3 FLAGS
+            tiene_a = tiene_m = False # R3 FLAGS
 
 
 
@@ -90,11 +92,17 @@ def principal():
                 elif letra == 'b':
                     contiene_b = True
 
-            if es_vocal(letra) and (letra != 'a' and letra != 'A'):
+            if es_vocal(letra):
                 cant_vocales += 1
+                if letra == 'a' or letra == 'A':
+                    tiene_a = True
 
-            if es_consonante(letra) and (letra != 'm' and letra != 'M'):
+
+            if es_consonante(letra):
                 cant_consonantes += 1
+                if letra == 'm' or letra == 'M':
+                    tiene_m = True
+
 
 
 

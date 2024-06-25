@@ -98,6 +98,7 @@ def principal():
 
             if cant_cons > cant_voc and not tiene_m and not tiene_a:
                 clc += cl
+                print(f'Esta es la cant de letras consonantes, por palabra: {clc}')
                 cpc += 1
 
             if cant_d >= 2 and es_vocal(anterior):
