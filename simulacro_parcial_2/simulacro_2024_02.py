@@ -16,6 +16,12 @@ def es_digito(caracter):
 def es_impar(caracter):
     return int(caracter) % 2 != 0
 
+def promedio_entero(cantidad, totales):
+    promedio = 0
+    if totales > 0:
+        promedio = cantidad // totales
+    return promedio
+
 
 
 def principal():
@@ -36,6 +42,15 @@ def principal():
     empieza_vocal = False
     palabra_mas_larga_que_comienza_voca_y_tiene_al_menos_una_b = None
 
+    # R3 FLAGS
+    cant_letras_totales_en_texto = 0
+    cant_consonantes = 0
+    cant_vocales = 0
+    tiene_a = False
+    tiene_m = False
+    cant_palabras_que_tienen_mas_consonantes_que_vocales_y_no_tienen_a_o_m = 0
+    cant_letras_de_palabras_que_tienen_mas_consonantes_que_vocales_y_no_tienen_a_o_m = 0
+
     for letra in texto:
         if letra == ' ' or letra == '.':
 
@@ -48,6 +63,10 @@ def principal():
                 elif cant_de_letras_por_palabra > palabra_mas_larga_que_comienza_voca_y_tiene_al_menos_una_b:
                     palabra_mas_larga_que_comienza_voca_y_tiene_al_menos_una_b = cant_de_letras_por_palabra
 
+            if cant_consonantes > cant_vocales and not tiene_a and not tiene_m:
+                cant_palabras_que_tienen_mas_consonantes_que_vocales_y_no_tienen_a_o_m += 1
+                cant_letras_de_palabras_que_tienen_mas_consonantes_que_vocales_y_no_tienen_a_o_m += cant_de_letras_por_palabra
+
 
             # RESETEO FLAGS R1
             cant_de_letras_por_palabra = 0
@@ -57,25 +76,33 @@ def principal():
             #RESETEO FLAGS R2
             empieza_vocal = tiene_b = False
 
+            #RESETEO FLAGS R3
+            cant_vocales = cant_consonantes = 0
+            tiene_a = tiene_m = False
 
 
 
         else:
             cant_de_letras_por_palabra += 1
+            cant_letras_totales_en_texto += 1
 
             if es_digito(letra):
                 if cant_de_letras_por_palabra == 1 and es_impar(letra):
                     empieza_digito_impar = True
 
             elif es_consonante(letra):
+                cant_consonantes += 1
                 if letra == 'b' or letra == 'B':
                     tiene_b = True
-
+                if letra == 'm' or letra == 'M':
+                    tiene_m = True
 
             elif es_vocal(letra):
+                cant_vocales += 1
                 if cant_de_letras_por_palabra == 1:
                     empieza_vocal = True
-
+                if letra == 'a' or letra == 'A':
+                    tiene_a = True
 
             if cant_de_letras_por_palabra == 2 and es_minuscula(letra):
                 tiene_letras_minusculas_dsp_del_digito = True
@@ -86,11 +113,12 @@ def principal():
 
     r1 = cant_palabras_empiezan_digito_siguen_con_minusculas
     r2 = palabra_mas_larga_que_comienza_voca_y_tiene_al_menos_una_b
+    r3 = promedio_entero(cant_letras_de_palabras_que_tienen_mas_consonantes_que_vocales_y_no_tienen_a_o_m, cant_palabras_que_tienen_mas_consonantes_que_vocales_y_no_tienen_a_o_m)
 
 
     print("Primer resultado:", r1)
     print("Segundo resultado:", r2)
-    # print("Tercer resultado:", r3)
+    print("Tercer resultado:", r3)
     # print("Cuarto resultado:", r4)
 
 
