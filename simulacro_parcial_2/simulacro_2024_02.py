@@ -51,6 +51,10 @@ def principal():
     cant_palabras_que_tienen_mas_consonantes_que_vocales_y_no_tienen_a_o_m = 0
     cant_letras_de_palabras_que_tienen_mas_consonantes_que_vocales_y_no_tienen_a_o_m = 0
 
+    # R4 FLAGS
+    cant_d = 0
+    cant_palabras_incluyen_dos_o_mas_veces_d_y_vocal_y_terminan_en_vocal = 0
+
     for letra in texto:
         if letra == ' ' or letra == '.':
 
@@ -67,6 +71,10 @@ def principal():
                 cant_palabras_que_tienen_mas_consonantes_que_vocales_y_no_tienen_a_o_m += 1
                 cant_letras_de_palabras_que_tienen_mas_consonantes_que_vocales_y_no_tienen_a_o_m += cant_de_letras_por_palabra
 
+            if cant_d >= 2 and es_vocal(anterior):
+                cant_palabras_incluyen_dos_o_mas_veces_d_y_vocal_y_terminan_en_vocal += 1
+
+
 
             # RESETEO FLAGS R1
             cant_de_letras_por_palabra = 0
@@ -80,6 +88,8 @@ def principal():
             cant_vocales = cant_consonantes = 0
             tiene_a = tiene_m = False
 
+            #RESETEP FLAGS R4
+            cant_d = 0
 
 
         else:
@@ -103,6 +113,8 @@ def principal():
                     empieza_vocal = True
                 if letra == 'a' or letra == 'A':
                     tiene_a = True
+                if anterior == 'd' or anterior == 'D':
+                    cant_d += 1
 
             if cant_de_letras_por_palabra == 2 and es_minuscula(letra):
                 tiene_letras_minusculas_dsp_del_digito = True
@@ -110,16 +122,19 @@ def principal():
             elif not es_minuscula(letra):
                 tiene_letras_minusculas_dsp_del_digito = False
 
+            anterior = letra
+
 
     r1 = cant_palabras_empiezan_digito_siguen_con_minusculas
     r2 = palabra_mas_larga_que_comienza_voca_y_tiene_al_menos_una_b
     r3 = promedio_entero(cant_letras_de_palabras_que_tienen_mas_consonantes_que_vocales_y_no_tienen_a_o_m, cant_palabras_que_tienen_mas_consonantes_que_vocales_y_no_tienen_a_o_m)
+    r4 = cant_palabras_incluyen_dos_o_mas_veces_d_y_vocal_y_terminan_en_vocal
 
 
     print("Primer resultado:", r1)
     print("Segundo resultado:", r2)
     print("Tercer resultado:", r3)
-    # print("Cuarto resultado:", r4)
+    print("Cuarto resultado:", r4)
 
 
 
