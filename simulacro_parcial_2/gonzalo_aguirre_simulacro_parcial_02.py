@@ -27,7 +27,6 @@ def promedio_entero(cantidad, totales):
 def principal():
     tratar_archivo = open('simulacro_2024_01.txt')
     texto = tratar_archivo.read()
-    print(texto)
     tratar_archivo.close()
 
 
