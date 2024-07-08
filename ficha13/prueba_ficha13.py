@@ -1,12 +1,9 @@
-import soporte, sys
+import sys
 
-sys.path.append('../ficha12')
+import soporte
 
-from ficha12 import con_m_y_b
+print(sys.path)
 
-
-
-print(con_m_y_b.tieneVocal())
 
 
 
