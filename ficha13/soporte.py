@@ -1,3 +1,4 @@
+__author__ = 'El loco Mandrake'
 
 def funcion_principal():
     print("Ejecutando la función principal")

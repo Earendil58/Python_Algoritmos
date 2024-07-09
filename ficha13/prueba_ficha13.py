@@ -2,7 +2,8 @@ import sys
 
 import soporte
 
-print(sys.path)
+print(soporte.__name__)
+print(soporte.__author__)
 
 
 
