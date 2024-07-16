@@ -1,24 +1,27 @@
-notas = []
+lista_01 = [1,2,3,4,5,6,7,8,9,10]
 
-for nota in range(4):
-    nota = int(input('Ingrese una nota: '))
-    notas.append(nota)
+print(f'Lista-01: {lista_01}')
 
+lista_02 = lista_01[1:4]
 
-print(f'Las notas fueron: {notas}')
+print(f'Lista-02: {lista_02}')
 
+lista_01[2:5] = [6,8,10]
 
-suma_notas = 0
+print(f'Nueva lista-01: {lista_01}')
 
-print(len(notas))
+lista_01[2:5] = []
 
-for nota in range(len(notas)):
-    suma_notas += notas[nota]
+print(f'Nueva lista-01-02: {lista_01}')
 
+lista_01[2:2] = [66]
 
-promedio = suma_notas / 4
+print('Nuevo valor de lista-01',lista_01, sep=' --> ')
 
-print(f'El promedio es: {promedio}')
+lista_01[:0] = lista_01
 
+print(f'Inserta nuevo valor de si mismo al principio: {lista_01}')
 
+lista_01[len(lista_01):] = [100]
 
+print(f'Agrega un elemento al final de la lista: {lista_01}')
