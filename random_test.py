@@ -1,27 +1,30 @@
-lista_01 = [1,2,3,4,5,6,7,8,9,10]
+def arreglo(lista, multiplicador):
+    lista_multiplicada = []
 
-print(f'Lista-01: {lista_01}')
+    for elemento in lista:
+        elemento_multiplicado = elemento * multiplicador
 
-lista_02 = lista_01[1:4]
+        lista_multiplicada.append(elemento_multiplicado)
 
-print(f'Lista-02: {lista_02}')
+    return lista_multiplicada
 
-lista_01[2:5] = [6,8,10]
 
-print(f'Nueva lista-01: {lista_01}')
+def test():
+    array = []
+    largo_lista = int(input('Ingrese el largo tamaño del array: '))
+    multiplicador = int(input('Ingrese el elemento multiplicador: '))
 
-lista_01[2:5] = []
+    for i in range(largo_lista):
+        elemento_array = int(input('Ingrese un elemento del array: '))
+        array.append(elemento_array)
 
-print(f'Nueva lista-01-02: {lista_01}')
 
-lista_01[2:2] = [66]
+    arreglo_multiplicado = arreglo(array, multiplicador)
 
-print('Nuevo valor de lista-01',lista_01, sep=' --> ')
+    print(arreglo_multiplicado)
 
-lista_01[:0] = lista_01
 
-print(f'Inserta nuevo valor de si mismo al principio: {lista_01}')
+if __name__ == '__main__':
+    test()
 
-lista_01[len(lista_01):] = [100]
 
-print(f'Agrega un elemento al final de la lista: {lista_01}')
