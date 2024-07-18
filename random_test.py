@@ -1,30 +1,25 @@
-def arreglo(lista, multiplicador):
-    lista_multiplicada = []
+def generador_arrays(cantArrays):
+    conjunto_arrays = []
 
-    for elemento in lista:
-        elemento_multiplicado = elemento * multiplicador
+    if cantArrays > 0:
+        for _ in range(cantArrays):
+            array = []
+            conjunto_arrays.append(array)
+        return conjunto_arrays
 
-        lista_multiplicada.append(elemento_multiplicado)
-
-    return lista_multiplicada
-
+def popular_arrays(conjuntoArrays):
+    for i in range(len(conjuntoArrays)):
+        if len(conjuntoArrays[i]) == 0:
+            tamaño_array = int(input('Ingrese el tamaño del array: '))
+            array = [0] * tamaño_array
+            conjuntoArrays[i] = array
+    print(f'Los arrays populados: {conjuntoArrays}')
+    return conjuntoArrays
 
 def test():
-    array = []
-    largo_lista = int(input('Ingrese el largo tamaño del array: '))
-    multiplicador = int(input('Ingrese el elemento multiplicador: '))
-
-    for i in range(largo_lista):
-        elemento_array = int(input('Ingrese un elemento del array: '))
-        array.append(elemento_array)
-
-
-    arreglo_multiplicado = arreglo(array, multiplicador)
-
-    print(arreglo_multiplicado)
-
+    cant_arrays = int(input('Ingrese la cantidad de arrays a generar: '))
+    arrays_a_popular = generador_arrays(cant_arrays)
+    popular_arrays(arrays_a_popular)
 
 if __name__ == '__main__':
     test()
-
-
