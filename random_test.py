@@ -2,7 +2,7 @@ def generador_arrays(cantArrays):
     conjunto_arrays = []
 
     if cantArrays > 0:
-        for _ in range(cantArrays):
+        for i in range(cantArrays):
             array = []
             conjunto_arrays.append(array)
         return conjunto_arrays
@@ -11,7 +11,10 @@ def popular_arrays(conjuntoArrays):
     for i in range(len(conjuntoArrays)):
         if len(conjuntoArrays[i]) == 0:
             tamaño_array = int(input('Ingrese el tamaño del array: '))
-            array = [0] * tamaño_array
+            array = []
+            for elemento in range(tamaño_array):
+                numero = int(input('Ingrese un valor para el elemento del array: '))
+                array.append(numero)
             conjuntoArrays[i] = array
     print(f'Los arrays populados: {conjuntoArrays}')
     return conjuntoArrays
@@ -23,3 +26,8 @@ def test():
 
 if __name__ == '__main__':
     test()
+
+
+
+
+
