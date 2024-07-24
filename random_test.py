@@ -1,28 +1,11 @@
-def generador_array(tamañoArray):
-    array = []
-    for elemento in range(tamañoArray):
-        numero = int(input('Ingrese el valor del elemento del array: '))
-        array.append(numero)
+cadena = 'Hola, soy una cadena de strings'
 
-    return array
+array_cadena = [letra for letra in cadena]
 
-def sumaArrays(array1, array2):
-    longitud_arrays = len(array1)
-    array_suma = [0] * longitud_arrays
+print(array_cadena)
 
-    for elemento in range(longitud_arrays):
-        array_suma[elemento] = array1[elemento] + array2[elemento]
+rango_numeros = range(1,101)
 
-    print(array_suma)
+array_numeros = [numero for numero in rango_numeros]
 
-def test():
-    tamaño_1 = int(input('Ingrese el tamaño deseado para el array: '))
-    array_1 = generador_array(tamaño_1)
-    tamaño_2 = int(input('Ingrese el tamaño deseado para el array: '))
-    array_2 = generador_array(tamaño_2)
-    array_suma = sumaArrays(array_1, array_2)
-
-
-if __name__ == '__main__':
-    test()
-
+print(array_numeros)
