@@ -9,9 +9,13 @@ def promedio_anual(lluvias):
 
     return promedio_anual_lluvias
 
+
+
 def promedio_lluvias_trimestre(lluvias, trimestre):
     trimestre_empieza = None
     trimestre_termina = None
+    acumulador_lluvias_trimestrales = 0
+
     if trimestre == 1:
         trimestre_empieza = 0
         trimestre_termina = 3
@@ -27,7 +31,13 @@ def promedio_lluvias_trimestre(lluvias, trimestre):
 
     lluvia_trimestre_elegido = lluvias[trimestre_empieza:trimestre_termina]
 
-    print(lluvia_trimestre_elegido)
+
+    for lluvia in lluvia_trimestre_elegido:
+        acumulador_lluvias_trimestrales += lluvia
+
+    promedio_de_lluvias_trimestre_elegido = round(acumulador_lluvias_trimestrales / 3, 2)
+
+    return promedio_de_lluvias_trimestre_elegido
 
 
 
@@ -38,17 +48,15 @@ def test():
         mes_lluvia = int(input(f'Ingrese las lluvias registradas para el mes {mes}: '))
         lluvias_registradas.append(mes_lluvia)
 
-
     promedio_anual_lluvias = promedio_anual(lluvias_registradas)
 
     print(promedio_anual_lluvias)
 
     trimestre_elegido = int(input('Ingrese el trimestre elegido para validar el promedio (1,2,3,4): '))
 
-    lluvias_por_trimestre = promedio_lluvias_trimestre(lluvias_registradas, trimestre_elegido)
+    promedio_lluvias_por_trimestre = promedio_lluvias_trimestre(lluvias_registradas, trimestre_elegido)
 
-    print(lluvias_por_trimestre)
-
+    print(promedio_lluvias_por_trimestre)
 
 
 if __name__ == '__main__':
