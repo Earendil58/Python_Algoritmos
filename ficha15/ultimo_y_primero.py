@@ -18,8 +18,6 @@ def primer_elemento(vector):
     return vector_con_elementos_menores_a_primer_elemento
 
 
-
-
 def test():
     vector_tamaño = int(input('Indique de qué tamaño será el vector generado: '))
     vector = []
