@@ -1,11 +1,18 @@
-cadena = 'Hola, soy una cadena de strings'
+v = [4,2,7,9,11,5]
+n = len(v)
 
-array_cadena = [letra for letra in cadena]
 
-print(array_cadena)
+print(f'El vector al principio: {v}')
 
-rango_numeros = range(1,101)
+i = 0
 
-array_numeros = [numero for numero in rango_numeros]
+for j in range(i+1, n):
+    print(f'Esto es v[i]: {v[i]} y esto es v[j]: {v[j]}')
+    if v[i] > v[j]:
+        v[i], v[j] = v[j], v[i]
+        print(f'Esto es v[i]: {v[i]} y esto es v[j]: {v[j]} - entrada en if')
 
-print(array_numeros)
+
+
+
+print(f'El vector al final: {v}')
