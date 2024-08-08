@@ -1,3 +1,6 @@
-v = [4,3,11,789,1,45]
-
-print(len(v))
+def comprobar(v):
+    n = len(v)
+    for i in range(n-1):
+        if v[i] > v[i+1]:
+            return False
+    return True
