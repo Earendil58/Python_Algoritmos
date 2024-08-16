@@ -30,6 +30,16 @@ def ordenar_por_nombres(nombres, edades, sueldos):
     return nombres, edades, sueldos
 
 
+def mostrar_mayores_edad_menos_diezmil(nombres, edades, sueldos):
+    longitud_arreglos = len(nombres)
+
+    print('Mayores de 18 años que ganan menos de $10.000')
+    for i in range(longitud_arreglos):
+        if edades[i] >= 18 and sueldos[i] < 10000:
+            print(f'El nombre de la persona, mayor de 18 años, que gana menos de $10.000 es: {nombres[i]} y el sueldo es de: {sueldos[i]}')
+
+
+
 
 
 def main():
@@ -43,6 +53,10 @@ def main():
     usuarios_ordenados_por_nombre = ordenar_por_nombres(usuarios_nombres, usuarios_edad, usuarios_sueldos)
 
     print(usuarios_ordenados_por_nombre)
+
+    mayores_que_ganan_menos_diezmil = mostrar_mayores_edad_menos_diezmil(usuarios_nombres, usuarios_edad, usuarios_sueldos)
+
+    print(mayores_que_ganan_menos_diezmil)
 
 
 if __name__ == '__main__':
