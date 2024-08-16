@@ -17,8 +17,18 @@ def generador_usuarios(cant_usuarios):
     return nombres,edades, sueldos
 
 
-def ordenar(nombres, edades,sueldos):
-    
+def ordenar_por_nombres(nombres, edades, sueldos):
+    longitud_arreglos = len(nombres)
+
+    for i in range(longitud_arreglos - 1):
+        for j in range(i + 1, longitud_arreglos):
+            if nombres[i] > nombres[j]:
+                nombres[i], nombres[j] = nombres[j], nombres[i]
+                sueldos[i], sueldos[j] = sueldos[j], sueldos[i]
+                edades[i],  edades[j]  = edades[j], edades[i]
+
+    return nombres, edades, sueldos
+
 
 
 
@@ -29,6 +39,10 @@ def main():
     print(usuarios_nombres)
     print(usuarios_edad)
     print(usuarios_sueldos)
+
+    usuarios_ordenados_por_nombre = ordenar_por_nombres(usuarios_nombres, usuarios_edad, usuarios_sueldos)
+
+    print(usuarios_ordenados_por_nombre)
 
 
 if __name__ == '__main__':
