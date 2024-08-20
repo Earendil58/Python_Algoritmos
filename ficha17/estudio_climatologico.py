@@ -34,13 +34,14 @@ def cargar_datos():
     return dias, regiones, temperaturas
 
 def menu():
+    print('-' * 90)
     print('Ingrese algunas de las siguientes opciones: ')
     print('1) Determinar el promedio general de temperatura')
     print('2) Dada una región, mostrar las temperaturas de la misma, ordenadas por dia, de menor a mayor')
     print('3) Dada una región, determinar si la temperatura de alguna muestra superó el valor x, ingresado por teclado')
     print('4) Determinar la cantidad de muestras por region (20 contadores)')
-
     opcion_elegida = int(input('Ingresa la opción elegida: '))
+    print('-' * 90)
 
     return opcion_elegida
 
@@ -48,9 +49,9 @@ def promedio_gral_temperaturas(temperaturas):
     longitud_array_temperaturas = len(temperaturas)
     acumulador_temperaturas = None
 
-    for temperatura in range(temperaturas):
+    for temperatura in temperaturas:
         if acumulador_temperaturas is None:
-            acumulador_temperaturas += temperatura
+            acumulador_temperaturas = temperatura
         else:
             acumulador_temperaturas += temperatura
 
@@ -60,10 +61,12 @@ def promedio_gral_temperaturas(temperaturas):
 
 
 def principal():
-    datos = cargar_datos()
+    dias, regiones, temperaturas = cargar_datos()
     opcion_elegida = menu()
 
     if opcion_elegida == 1:
+        promedios_de_temperaturas = promedio_gral_temperaturas(temperaturas)
+        print(f'El promedio de las temperaturas registradas es: {promedios_de_temperaturas}')
 
 
 
