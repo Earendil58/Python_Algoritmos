@@ -60,6 +60,7 @@ def promedio_gral_temperaturas(temperaturas):
     return promedio_temperaturas
 
 
+
 def principal():
     dias, regiones, temperaturas = cargar_datos()
     opcion_elegida = menu()
