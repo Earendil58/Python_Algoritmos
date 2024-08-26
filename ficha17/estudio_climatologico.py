@@ -59,6 +59,17 @@ def promedio_gral_temperaturas(temperaturas):
 
     return promedio_temperaturas
 
+def ordenar_temperaturas(temperaturas, dias,regiones):
+    longitud_array = len(temperaturas)
+    for i in range(longitud_array):
+        for j in range(0, longitud_array - i - 1):
+            if temperaturas[j] > temperaturas[j + 1]:
+                temperaturas[j], temperaturas[j + 1] = temperaturas[j + 1], temperaturas[j]
+                dias[i], dias[j + 1] = dias[j + 1], dias[j]
+                regiones[j], regiones[j + 1] = regiones[j + 1], regiones[j]
+
+    return temperaturas
+
 
 
 def principal():
@@ -68,6 +79,10 @@ def principal():
     if opcion_elegida == 1:
         promedios_de_temperaturas = promedio_gral_temperaturas(temperaturas)
         print(f'El promedio de las temperaturas registradas es: {promedios_de_temperaturas}')
+
+    elif opcion_elegida == 2:
+        temperaturas_ord_asc = ordenar_temperaturas(temperaturas,dias,regiones)
+        print(f'Las temperaturas, ordenadas de manera ascendentes son: {temperaturas_ord_asc}')
 
 
 
