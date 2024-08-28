@@ -1,24 +1,4 @@
 
-
-# def popular_Arrays(cant_elementos_a_registrar):
-#
-#     temperaturas = []
-#     regiones = []
-#     dias = []
-#
-#     for elemento in range(cant_elementos_a_registrar):
-#         dia = int(input(f'Ingrese el día en el que se registró la temperatura: '))
-#         temperatura = float(input(f'Ingrese la temperatura registrada ({elemento + 1}): '))
-#         region = int(input(f'Ingrese la región en donde se registró la temperatura({elemento + 1}): '))
-#
-#         temperaturas.append(temperatura)
-#         regiones.append(region)
-#         dias.append(dia)
-#
-#     print(f'temperaturas: {temperaturas}')
-#     print(f'dias: {dias}')
-#     print(f'regiones: {regiones}')
-
 def cargar_datos():
     n = int(input("Ingrese la cantidad de muestras a registrar: "))
     temperaturas = [0.0] * n
@@ -70,11 +50,25 @@ def ordenar_temperaturas(temperaturas, dias,regiones):
 
     return temperaturas
 
+def temperaturas_por_region(regiones, temperaturas, reg):
+    longitud_array_regiones = len(regiones)
+    temperas_de_region = []
+
+    for region in range(longitud_array_regiones):
+        if regiones[region] == reg:
+            temperas_de_region.append(temperaturas[region])
+
+    return temperas_de_region
+
 
 
 def principal():
     dias, regiones, temperaturas = cargar_datos()
     opcion_elegida = menu()
+
+    print(f'Las regiones mencionadas son: {regiones}')
+    print(f'Las temperaturas mencionadas allí, son: {temperaturas}')
+    print(f'Los días allí mencionados son: {dias}')
 
     if opcion_elegida == 1:
         promedios_de_temperaturas = promedio_gral_temperaturas(temperaturas)
@@ -83,6 +77,10 @@ def principal():
     elif opcion_elegida == 2:
         temperaturas_ord_asc = ordenar_temperaturas(temperaturas,dias,regiones)
         print(f'Las temperaturas, ordenadas de manera ascendentes son: {temperaturas_ord_asc}')
+
+        region_elegida_para_mostrar_temperaturas = int(input('Ingrese la región para evaluar sus temperaturas: '))
+        temperaturas_por_regiones = temperaturas_por_region(regiones, temperaturas, region_elegida_para_mostrar_temperaturas)
+        print(f'Las temperaturas de la region: {region_elegida_para_mostrar_temperaturas}, son: {temperaturas_por_regiones}')
 
 
 
