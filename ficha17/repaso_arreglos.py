@@ -17,11 +17,19 @@ def generador_lote(cant_numeros):
         print('Por favor ingrese un número mayor a 0')
     return lote
 
+def promedio_entre_dos_valores(val1, val2, lote):
+    lote_a_promediar = lote[val1 - 1: val2]
+    print(lote_a_promediar)
+
 
 def principal():
     cant_numeros = int(input('Ingrese la cant de números a cargar: '))
     lote = generador_lote(cant_numeros)
     print(f'Los números ingresados son: {lote}')
+    print('Ingrese dos valores, para cortar el array y dar promedio de números comprendido en ellos: ')
+    val1 = int(input('Ingrese el valor 1: '))
+    val2 = int(input('Ingrese el valor 2: '))
+    lote_a_promediar = promedio_entre_dos_valores(val1, val2, lote)
 
 
 if __name__ == '__main__':
