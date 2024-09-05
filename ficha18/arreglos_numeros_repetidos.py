@@ -10,9 +10,17 @@ def popular_array(cant_elementos):
 def chequear_repeticion(arr1, arr2):
     num_repetido = []
     for i in arr1:
-        for j in arr2:
-            if i == j:
-                num_repetido.append(i)
+        existe = False
+        for k in num_repetido:
+            if i == k:
+                existe = True
+                break
+        if not existe:
+            for j in arr2:
+                if i == j:
+                    num_repetido.append(i)
+                    break
+
 
     return num_repetido
 
