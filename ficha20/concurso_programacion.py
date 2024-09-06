@@ -50,12 +50,11 @@ def orden_legajos_participantes(estudiantes_participantes_habilitados):
     longitud_arreglo = len(estudiantes_participantes_habilitados)
 
     for i in range(longitud_arreglo):
-        for j in range(i + 1, longitud_arreglo - i - 1):
-            if estudiantes_participantes_habilitados[i].legajo > estudiantes_participantes_habilitados[j].legajo:
-                estudiantes_participantes_habilitados[i], estudiantes_participantes_habilitados[j] = estudiantes_participantes_habilitados[j], estudiantes_participantes_habilitados[i]
+        for j in range(0, longitud_arreglo - i - 1):
+            if estudiantes_participantes_habilitados[j].legajo > estudiantes_participantes_habilitados[j + 1].legajo:
+                estudiantes_participantes_habilitados[j], estudiantes_participantes_habilitados[j + 1] = estudiantes_participantes_habilitados[j + 1], estudiantes_participantes_habilitados[j]
 
     return estudiantes_participantes_habilitados
-
 
 
 
