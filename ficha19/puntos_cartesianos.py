@@ -16,3 +16,12 @@ print(f'Valor de x: {punto_1.x}')
 print(f'Valor de y: {punto_1.y}')
 
 print(f'La distancia al origen, desde el punto, es: {punto_1.dist_origen()}')
+
+puntos = Punto(1.75, 2.88)
+
+puntos.z1 = 1.55
+puntos.z2 = 4.53
+
+
+
+
