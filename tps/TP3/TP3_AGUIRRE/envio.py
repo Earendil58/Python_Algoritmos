@@ -54,3 +54,43 @@ class Envio:
                     destino = 'Otro'
 
         return destino
+
+
+    def importe_inicial(self):
+        base_precio = [1100, 1800, 2450, 8300, 10900, 14300, 17900]
+        precio = base_precio[self.tipo_envio]
+
+        if self.pais() != 'Argentina':
+            if self.pais() in ['Bolivia', 'Paraguay', 'Uruguay']:
+                precio = precio * 120 // 100
+            elif self.pais() in ['Chile', 'Brasil']:
+                precio = precio * 125 // 100
+            else:
+                precio = precio * 150 // 100
+
+        return precio
+
+
+    def importe_final(self):
+        importe = self.importe_inicial()
+        if self.forma_pago == 1:  # Efectivo
+            importe = importe * 90 // 100  # 10% de descuento
+        return importe
+
+
+    def es_direccion_valida(self):
+        tiene_digitos = False
+        no_mayusculas_seguidas = True
+        solo_letras_y_digitos = True
+
+        for i in range(len(self.direccion_fisica)):
+            if self.es_digito(self.direccion_fisica[i]):
+                tiene_digitos = True
+            if i > 0:
+                if self.es_letra(self.direccion_fisica[i]) and self.es_letra(self.direccion_fisica[i-1]):
+                    if self.direccion_fisica[i].isupper() and self.direccion_fisica[i-1].isupper():
+                        no_mayusculas_seguidas = False
+            if not (self.es_letra(self.direccion_fisica[i]) or self.es_digito(self.direccion_fisica[i]) or self.direccion_fisica[i] == ' '):
+                solo_letras_y_digitos = False
+
+        return tiene_digitos and no_mayusculas_seguidas and solo_letras_y_digitos

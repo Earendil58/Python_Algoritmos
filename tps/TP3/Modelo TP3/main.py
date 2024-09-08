@@ -58,11 +58,10 @@ def opcion1(v, tc, fd):
         tc = cargar_desde_archivo(v, tc, fd)
         print("Carga terminada...")
 
-    print()
     return v, tc
 
 
-def opcion2(v):
+def opcion2(arreglo):
     m = validar_mayor(0, "Cuantos registros quiere agregar al arreglo (al menos 1)?: ")
 
     for i in range(m):
@@ -72,10 +71,11 @@ def opcion2(v):
         fp = validar_rango(1, 2, "Forma de pago (entre 1 y 2): ")
 
         env = Envio(cod, dp, tip, fp)
-        v.append(env)
+        arreglo.append(env)
 
     print("Carga terminada")
-    print()
+
+    return arreglo, env
 
 
 def ordenar(v):
