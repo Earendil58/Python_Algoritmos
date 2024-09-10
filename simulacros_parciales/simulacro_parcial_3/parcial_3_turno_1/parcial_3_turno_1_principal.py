@@ -30,13 +30,26 @@ def popular_arreglo_automatico():
     return arreglo_empleos
 
 
+def validador(inferior):
+    n = int(input(f'Se necesita un valor mayor a {inferior} por favor: '))
+    while n <= inferior:
+        n = int(input(f'Error, se pidió un valor mayor a {inferior}, cargue de nuevo: '))
+    return n
 
-
-
+def mostrar(arreglo_empleos):
+    for empleo in arreglo_empleos:
+        print(empleo)
 
 
 
 
 def principal():
-    cant_empleos = int(input('Ingrese la cantidad de empleados a registrar : '))
+    cant_empleos = validador(0)
+    array_empleos = popular_arreglo_manual(cant_empleos)
+    mostrar(array_empleos)
+
+
+
+if __name__ == '__main__':
+    principal()
 

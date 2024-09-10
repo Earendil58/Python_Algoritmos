@@ -4,3 +4,10 @@ class Empleo:
         self.descripcion = descripcion
         self.tipo_empleo = tipo_empleo
         self.sueldo = sueldo
+
+
+    def __str__(self):
+        return (f'El empleo tiene un ID: {self.id_empleo} \n'
+                f'El empleo es: {self.descripcion} \n'
+                f'El tipo de empleo (0/39) es: {self.tipo_empleo} \n'
+                f'El sueldo para el empleo es: {self.sueldo}')
