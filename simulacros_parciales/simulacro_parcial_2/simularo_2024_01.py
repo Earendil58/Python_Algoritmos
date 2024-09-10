@@ -27,7 +27,7 @@ def calcular_promedio(cantidad, total):
 
 
 def principal():
-    tratar_archivo = open('./simulacro_2024_01.txt', 'rt')
+    tratar_archivo = open('simulacro_2024_01.txt', 'rt')
     texto = tratar_archivo.read()
     tratar_archivo.close()
 
