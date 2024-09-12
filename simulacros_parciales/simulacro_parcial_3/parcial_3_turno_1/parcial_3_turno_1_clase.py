@@ -5,10 +5,9 @@ class Empleo:
         self.tipo_empleo = tipo_empleo
         self.sueldo = sueldo
 
-
     def __str__(self):
-        return (f'{"-" * 90} \n'
-                f'El empleo tiene un ID: {self.id_empleo} \n'
-                f'El empleo es: {self.descripcion} \n'
-                f'El tipo de empleo (0/39) es: {self.tipo_empleo} \n'
-                f'El sueldo para el empleo es: {self.sueldo}')
+        return (f'Identificador: {self.id_empleo:<10}   -   '
+                f'Descripción: {self.descripcion:<20}   -   '
+                f'Tipo: {self.tipo_empleo:<5}   -   '
+                f'Sueldo: ${self.sueldo:,.2f}')
+

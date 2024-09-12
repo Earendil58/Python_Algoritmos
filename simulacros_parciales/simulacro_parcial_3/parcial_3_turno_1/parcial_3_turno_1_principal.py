@@ -51,7 +51,16 @@ def opcion2(arreglo_empleos):
             if arreglo_empleos[j].descripcion > arreglo_empleos[j + 1]. descripcion:
                 arreglo_empleos[j], arreglo_empleos[j + 1] = arreglo_empleos[j + 1], arreglo_empleos[j]
 
-    return arreglo_empleos
+    sueldos_totales_a_pagar = 0
+    for i in arreglo_empleos:
+        sueldos_totales_a_pagar += i.sueldo
+
+    return arreglo_empleos, sueldos_totales_a_pagar
+
+
+def opcion3(arreglo_empleos):
+    pass
+
 
 
 
@@ -82,21 +91,29 @@ def principal():
         if opcion_elegida == 1:
             cant_empleos = validador(int(input('Ingrese la cant de empleos: ')))
             arreglo_empleos = popular_arreglo_automatico(cant_empleos)
+            print(f'Listo! El arreglo fue cargado.')
+            print()
+            print()
 
 
         elif opcion_elegida == 2:
             if arreglo_empleos:
-                empleos_ordenados = opcion2(arreglo_empleos)
+                empleos_ordenados, sueldos_totales = opcion2(arreglo_empleos)
                 mostrar(empleos_ordenados)
+                print(f'El monto de los sueldos totales, a pagar, es de ${sueldos_totales}')
             else:
                 print('El arreglo no fue cargado todavía, inicialice el arreglo con la opción 1.')
 
+            print()
+            print()
+
         elif opcion_elegida == 5:
-            print('Saliento del programa')
+            print('Saliendo del programa')
 
         else:
             print('Por favor ingrese una opción válida')
-
+            print()
+            print()
 
 
 
