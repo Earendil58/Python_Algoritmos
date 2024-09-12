@@ -59,7 +59,15 @@ def opcion2(arreglo_empleos):
 
 
 def opcion3(arreglo_empleos):
-    pass
+    conteo_tipos = [0] * 40
+
+    for empleo in arreglo_empleos:
+        conteo_tipos[empleo.tipo_empleo] += 1
+
+    for tipo in range(40):
+        cantidad = conteo_tipos[tipo]
+        if cantidad > 0:
+            print(f'Tipo: {tipo}: {cantidad} empleos')
 
 
 
@@ -104,6 +112,15 @@ def principal():
             else:
                 print('El arreglo no fue cargado todavía, inicialice el arreglo con la opción 1.')
 
+            print()
+            print()
+
+
+        elif opcion_elegida == 3:
+            if arreglo_empleos:
+                opcion3(arreglo_empleos)
+            else:
+                print('Por favor, primero cargue el arreglo')
             print()
             print()
 
