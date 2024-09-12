@@ -7,7 +7,11 @@ def popular_arreglo_manual(cant_empleos):
         id_empleo = int(input(f'Ingrese el ID del empleo {i + 1}: '))
         descripcion = input(f'Ingrese la descrición del empleo {i + 1}: ')
         tipo_empleo = int(input(f'Ingrese el valor numérico del tipo de empleo {i + 1}: '))
+        while tipo_empleo < 0 or tipo_empleo > 39:
+            tipo_empleo = int(input(f'Ingrese el valor numérico del tipo de empleo {i + 1}: '))
         sueldo = float(input(f'Ingrese el sueldo estipulado para el empleo {i + 1}: '))
+        while sueldo <= 0:
+            sueldo = float(input(f'Ingrese el sueldo estipulado para el empleo {i + 1}: '))
 
         empleo = Empleo(id_empleo, descripcion, tipo_empleo, sueldo)
         arreglo_empleos.append(empleo)
@@ -15,10 +19,10 @@ def popular_arreglo_manual(cant_empleos):
     return arreglo_empleos
 
 
-def popular_arreglo_automatico():
+def popular_arreglo_automatico(cant_empleos):
     arreglo_empleos = []
     empleos_disponibles = ['domador_hamsters', 'arqueologo', 'superhéroe', 'economista', 'actor', 'maquinista', 'físico']
-    for i in range(empleos_disponibles):
+    for i in range(cant_empleos):
         id_empleo = random.randint(1, 100)
         descripcion = random.choice(empleos_disponibles)
         tipo_empleo = random.randint(0,39)
@@ -30,23 +34,69 @@ def popular_arreglo_automatico():
     return arreglo_empleos
 
 
-def validador(inferior):
-    n = int(input(f'Se necesita un valor mayor a {inferior} por favor: '))
-    while n <= inferior:
-        n = int(input(f'Error, se pidió un valor mayor a {inferior}, cargue de nuevo: '))
-    return n
+def validador(numero):
+    while numero <= 0:
+        numero = int(input(f'Error, se pidió un valor mayor a {0}, cargue de nuevo: '))
+    return numero
+
 
 def mostrar(arreglo_empleos):
     for empleo in arreglo_empleos:
         print(empleo)
 
+def opcion2(arreglo_empleos):
+    longitud_arreglo = len(arreglo_empleos)
+    for i in range(longitud_arreglo):
+        for j in range(0, longitud_arreglo - i - 1):
+            if arreglo_empleos[j].descripcion > arreglo_empleos[j + 1]. descripcion:
+                arreglo_empleos[j], arreglo_empleos[j + 1] = arreglo_empleos[j + 1], arreglo_empleos[j]
+
+    return arreglo_empleos
+
+
+
+def menu():
+    print('----- Ingrese alguna de las siguientes opciones -----')
+    print('1) Cargar empleos disponibles ')
+    print('2) Mostrar datos de empleos disponibles')
+    print('3) Determinar la cantidad de empleos que hay en el arreglo por cada tipo de empleo posible ')
+    print('4) Determinar si existe un empleo cuyo número de identificación sea igual num, siendo num un valor que se carga por teclado')
+    print('5) Salir.')
+    opcion = int(input('Ingrese la opción elegida: '))
+
+    while opcion <= 0 or opcion > 5:
+        print('Ingrese una opción válida. [del 1 al 5] ')
+        opcion = int(input('Ingrese la opción elegida: '))
+
+    return opcion
 
 
 
 def principal():
-    cant_empleos = validador(0)
-    array_empleos = popular_arreglo_manual(cant_empleos)
-    mostrar(array_empleos)
+    arreglo_empleos = []
+    opcion_elegida = 0
+
+    while opcion_elegida != 5:
+        opcion_elegida = menu()
+
+        if opcion_elegida == 1:
+            cant_empleos = validador(int(input('Ingrese la cant de empleos: ')))
+            arreglo_empleos = popular_arreglo_automatico(cant_empleos)
+
+
+        elif opcion_elegida == 2:
+            if arreglo_empleos:
+                empleos_ordenados = opcion2(arreglo_empleos)
+                mostrar(empleos_ordenados)
+            else:
+                print('El arreglo no fue cargado todavía, inicialice el arreglo con la opción 1.')
+
+        elif opcion_elegida == 5:
+            print('Saliento del programa')
+
+        else:
+            print('Por favor ingrese una opción válida')
+
 
 
 
