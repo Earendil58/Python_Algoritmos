@@ -74,10 +74,15 @@ def opcion3(arreglo_empleos):
 
 
 def opcion4(tipo_empleo_buscado, arreglo_empleos):
+    arreglo_de_tipos_empleos = [empleo.tipo_empleo for empleo in arreglo_empleos]
     for empleo in arreglo_empleos:
         if tipo_empleo_buscado == empleo.tipo_empleo:
             print(f'El empleo buscado existe: {empleo.descripcion} \n'
                   f'El sueldo para dicho empleo, es de: ${empleo.sueldo}')
+            break
+
+    if tipo_empleo_buscado not in arreglo_de_tipos_empleos:
+        print(f'El tipo de empleo buscado ({tipo_empleo_buscado}) no existe.')
 
 
 
@@ -143,6 +148,9 @@ def principal():
                 opcion4(tipo_empleo_buscado, arreglo_empleos)
             else:
                 print('Por favor, primero cargue el arreglo.')
+
+            print()
+            print()
 
         elif opcion_elegida == 5:
             print('Saliendo del programa')
