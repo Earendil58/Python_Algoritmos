@@ -64,10 +64,20 @@ def opcion3(arreglo_empleos):
     for empleo in arreglo_empleos:
         conteo_tipos[empleo.tipo_empleo] += 1
 
+    print(f'Este es el conteo_tipos: {conteo_tipos}')
+
     for tipo in range(40):
         cantidad = conteo_tipos[tipo]
         if cantidad > 0:
             print(f'Tipo: {tipo}: {cantidad} empleos')
+
+
+
+def opcion4(tipo_empleo_buscado, arreglo_empleos):
+    for empleo in arreglo_empleos:
+        if tipo_empleo_buscado == empleo.tipo_empleo:
+            print(f'El empleo buscado existe: {empleo.descripcion} \n'
+                  f'El sueldo para dicho empleo, es de: ${empleo.sueldo}')
 
 
 
@@ -123,6 +133,16 @@ def principal():
                 print('Por favor, primero cargue el arreglo')
             print()
             print()
+
+        elif opcion_elegida == 4:
+            if arreglo_empleos:
+                tipo_empleo_buscado = int(input('Por favor, ingrese el tipo de empleo buscado (opciones válida del [0 al 39]) :'))
+                while tipo_empleo_buscado < 0 or tipo_empleo_buscado > 39:
+                    print('Por favor, ingrese una opción válida, las opciones van del 0 al 39 (incluidos)')
+                    tipo_empleo_buscado = int(input('Por favor, ingrese el tipo de empleo buscado (opciones válida del [0 al 39]) :'))
+                opcion4(tipo_empleo_buscado, arreglo_empleos)
+            else:
+                print('Por favor, primero cargue el arreglo.')
 
         elif opcion_elegida == 5:
             print('Saliendo del programa')
