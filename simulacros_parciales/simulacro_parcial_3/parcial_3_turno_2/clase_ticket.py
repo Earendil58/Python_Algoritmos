@@ -11,4 +11,4 @@ class Ticket:
                f'ID Pasajero: {self.id_pasajero: <10}   -   '
                f'ID Pais Destino: {self.id_pais_destino: <10}   -   '
                f'Número de asiento: {self.num_asiento: <10}   -   '
-               f'Importe Ticket: {self.importe_ticket: <10}   -   ')
+               f'Importe Ticket: {self.importe_ticket: <10}')
