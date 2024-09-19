@@ -41,15 +41,31 @@ def opcion3(arreglo_tickets, t):
     arreglo_con_id_paises_destino = [0] * 20
 
 
-    for i in range(len(arreglo_con_id_paises_destino)):
-        indices_ajustados = arreglo_tickets[i].id_pais_destino - 1
-        arreglo_con_id_paises_destino[indices_ajustados] += arreglo_tickets[i].importe_ticket
+    # for i in range(len(arreglo_con_id_paises_destino)):
+    #     indices_ajustados = arreglo_tickets[i].id_pais_destino - 1 #EL TRUCO ACÁ ERA AJUSTAR EL
+    #     arreglo_con_id_paises_destino[indices_ajustados] += arreglo_tickets[i].importe_ticket
+
+    for ticket in arreglo_tickets:
+        arreglo_con_id_paises_destino[(ticket.id_pais_destino) - 1] += ticket.importe_ticket
+
+    # for k in range(len(arreglo_con_id_paises_destino)):
+    #     if arreglo_con_id_paises_destino[k] > t:
+    #         print(f'Pais destino: {k + 1: <10}, importe acumulado: ${arreglo_con_id_paises_destino[k]: <10}')
 
     for k in range(len(arreglo_con_id_paises_destino)):
         if arreglo_con_id_paises_destino[k] > t:
             print(f'Pais destino: {k + 1: <10}, importe acumulado: ${arreglo_con_id_paises_destino[k]: <10}')
 
 
+def opcion4(arreglo_tickets, id_pasajero):
+    arreglo_id_pasajeros = [ticket.id_pasajero for ticket in arreglo_tickets]
+    for ticket in arreglo_tickets:
+        if ticket.id_pasajero == id_pasajero:
+            print(f'El pasajero ID: {id_pasajero} fue encontrado \n' 
+                  f'El ID de destino al que se dirige es: {ticket.id_pais_destino}')
+            break
+    if id_pasajero not in arreglo_id_pasajeros:
+        print(f'El ID buscado: {id_pasajero} no se encuentra dentro de los pasajeros registrados')
 
 
 def mostrar(arreglo):
@@ -63,6 +79,7 @@ def menu():
     print('1) Cargar los tickets')
     print('2) Mostrar los tickets')
     print('3) Determine el importe acumulado que se cobró por cada posible país de destino')
+    print('4) Determinar si existe un ticket cuyo número de identificación del pasajero sea igual a id.')
 
     print('5) Salir')
 
@@ -105,6 +122,19 @@ def principal():
             if arreglo_tickets:
                 t = int(input('Ingrese la cota t: '))
                 opcion3(arreglo_tickets, t)
+
+
+        elif opcion_elegida == 4:
+            if arreglo_tickets:
+                id_pasajero_buscado = int(input('Ingrese el ID del pasajero a buscar: '))
+                while id_pasajero_buscado < 1:
+                    id_pasajero_buscado = int(input('Ingrese el ID del pasajero a buscar: '))
+                opcion4(arreglo_tickets, id_pasajero_buscado)
+                print()
+                print()
+            else:
+                print('Por favor, ingrese el arreglo primero')
+
 
         elif opcion_elegida == 5:
             print('Nos re vimos, gato')
