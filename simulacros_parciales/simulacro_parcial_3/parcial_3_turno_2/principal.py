@@ -39,11 +39,15 @@ def opcion2(arreglo_tickets, asiento_cota_inferior):
 
 def opcion3(arreglo_tickets, t):
     arreglo_con_id_paises_destino = [0] * 20
-    for ticket in arreglo_tickets:
-        arreglo_con_id_paises_destino[ticket.id_pais_destino] += 1
 
-    print(f'Estos son los id de los paises de destino: {arreglo_con_id_paises_destino}')
 
+    for i in range(len(arreglo_con_id_paises_destino)):
+        indices_ajustados = arreglo_tickets[i].id_pais_destino - 1
+        arreglo_con_id_paises_destino[indices_ajustados] += arreglo_tickets[i].importe_ticket
+
+    for k in range(len(arreglo_con_id_paises_destino)):
+        if arreglo_con_id_paises_destino[k] > t:
+            print(f'Pais destino: {k + 1: <10}, importe acumulado: ${arreglo_con_id_paises_destino[k]: <10}')
 
 
 
