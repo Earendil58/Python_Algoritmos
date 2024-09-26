@@ -6,13 +6,22 @@ def generar_matriz(filas, columnas):
 def popular_matriz(matriz):
     for i in range(len(matriz)):
         for j in range(len(matriz)):
-            matriz[i][j] = int(input(f'Ingrese la cant del articulo vendido por empleado: '))
+            matriz[i][j] = int(input(f'Ingrese la cant del articulo[{j}] vendido por empleado[{i}]: '))
     return matriz
 
 
 def mostrar_matriz_bidimensional(matriz_populada):
     for fila in matriz_populada:
         print(fila)
+
+
+def cant_ventas_vendedor(matriz_populada):
+    for fila in range(len(matriz_populada)):
+        acumulador_vendedor = 0
+        for columna in range(len(matriz_populada[fila])):
+            acumulador_vendedor += matriz_populada[fila][columna]
+
+        print(f'Las ventas por vendedor[{fila}], fueron: {acumulador_vendedor}')
 
 
 
@@ -30,6 +39,7 @@ def principal():
     matriz_generada = generar_matriz(cant_empleados, cant_art)
     matriz_populada = popular_matriz(matriz_generada)
     mostrar_matriz_bidimensional(matriz_populada)
+    cant_ventas_vendedor(matriz_populada)
 
 
 if __name__ == '__main__':
