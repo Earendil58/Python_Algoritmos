@@ -21,7 +21,16 @@ def cant_ventas_vendedor(matriz_populada):
         for columna in range(len(matriz_populada[fila])):
             acumulador_vendedor += matriz_populada[fila][columna]
 
-        print(f'Las ventas por vendedor[{fila}], fueron: {acumulador_vendedor}')
+        print(f'Las ventas por vendedor[{fila}] - Cant total: {acumulador_vendedor}')
+
+
+def cant_ventas_articulo(matriz_populada):
+    for columna in range(len(matriz_populada)):
+        acumulador_articulo = 0
+        for fila in range(len(matriz_populada[columna])):
+            acumulador_articulo += matriz_populada[fila][columna]
+        print(f'Las ventas por articulo[{columna}] - Cant total: {acumulador_articulo}')
+
 
 
 
@@ -40,6 +49,7 @@ def principal():
     matriz_populada = popular_matriz(matriz_generada)
     mostrar_matriz_bidimensional(matriz_populada)
     cant_ventas_vendedor(matriz_populada)
+    cant_ventas_articulo(matriz_populada)
 
 
 if __name__ == '__main__':
