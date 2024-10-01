@@ -33,7 +33,6 @@ def cant_ventas_articulo(matriz_populada):
 
 
 
-
 def principal():
     cant_art = int(input('Ingrese la cant de articulos de la tienda: '))
     while cant_art < 0 or cant_art > 99:
