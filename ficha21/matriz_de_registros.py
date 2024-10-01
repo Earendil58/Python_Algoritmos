@@ -55,7 +55,6 @@ def principal():
 
     matriz_generada = generar_matriz(cant_años, cant_estudiantes)
     matriz_populada = popular_matriz(matriz_generada)
-
     mostrar_matriz(matriz_populada)
 
 
