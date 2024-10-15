@@ -1,15 +1,35 @@
-def generar_matriz(filas, columnas):
-    matriz = []
-    for i in range(filas):
-        fila = [0] * columnas
-        matriz.append(fila)
+def busqueda_binaria(arreglo, valor):
+    izq, der = 0, len(arreglo) - 1
+
+    print(f'Limite izq: {izq}')
+    print(f'Limite der: {der}')
+
+    while izq <= der:
+        punto_medio = (izq + der) // 2
+
+        print(f'Punto medio: {punto_medio}')
+
+        if arreglo[punto_medio] < valor:
+            izq = punto_medio + 1
+        else:
+            der = punto_medio - 1
+
+    return izq
 
 
-    return matriz
+
+def add_in_order(arreglo, valor):
+    pos = busqueda_binaria(arreglo,valor)
+    arreglo.insert(pos,valor)
 
 
-matriz_generada = generar_matriz(3,3)
+arreglo = [1, 3, 5, 7, 9, 11, 13, 15]
 
-for fila in matriz_generada:
-    print(fila)
+add_in_order(arreglo, 10)
+
+print(arreglo)
+
+
+
+
 
