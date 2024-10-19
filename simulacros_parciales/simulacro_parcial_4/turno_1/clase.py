@@ -7,13 +7,18 @@ class Lote:
         self.sup_terreno = sup_terreno
         self.monto_venta = monto_venta
 
+
+
     def __str__(self):
-        return (f'Nombre Completo: {self.nombre_completo: <20} \n'
-               f'Número de Manzana: {self.nro_mza: <5} \n'
-               f'Número de Lote: {self.nro_lote: <5} \n'
-               f'Orientación: {self.nro_orientacion: <5} \n'
-               f'Superficie del terreno: {self.sup_terreno} \n'
-               f'Monto de la venta: {self.monto_venta}')
+        orientaciones = ["Norte", "Sur", "Este", "Oeste"]
+        orientacion = orientaciones[self.nro_orientacion - 1]
+
+        return (f'Cliente: {self.nombre_completo:<25} - '
+                f'Manzana: {self.nro_mza:<3} - '
+                f'Lote: {self.nro_lote:<2} - '
+                f'Orientación: {self.nro_orientacion} ({orientacion:<5}) - '
+                f'Superficie: {self.sup_terreno:7.2f} - '
+                f'Importe: {self.monto_venta:9.2f}')
 
 
 
