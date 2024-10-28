@@ -28,7 +28,7 @@ def validar_num_no_negativo(num):
 
 def add_in_order(arreglo, libro):
     longitud_arreglo = len(arreglo)
-    posicion = longitud_arreglo #si no hay otra mejor, pongo al final
+    posicion = longitud_arreglo # si no hay otra mejor, pongo al final
 
     izq, der = 0, len(arreglo) - 1
 
