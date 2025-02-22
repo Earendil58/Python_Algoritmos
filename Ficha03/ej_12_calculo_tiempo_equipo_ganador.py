@@ -7,7 +7,6 @@ def desgloce_temporal(centesimas):
     return minutos, segundos, centesimas_finales
 
 
-
 def main():
     #TIEMPOS EQUIPO GANADOR:
 
@@ -22,7 +21,6 @@ def main():
 
 
     print(f'El tiempo total de carrera es: {minutos} minutos, {segundos} segundos y {centesimas} centésimas.')
-
 
 
 if __name__ == "__main__":
