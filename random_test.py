@@ -1,39 +1,19 @@
-def busqueda_binaria(arreglo, valor):
-    izq, der = 0, len(arreglo) - 1
-
-    print(f'Limite izq: {izq}')
-    print(f'Limite der: {der}')
-
-    while izq <= der:
-        punto_medio = (izq + der) // 2
 
 
+palabra_a_enmascarar = input('Ingrese la palabra: ')
+palabra_enmascarada = ''
+longitud_palabra = len(palabra_a_enmascarar)
+contador = 0
 
-        if arreglo[punto_medio] < valor:
-            izq = punto_medio + 1
-
-        else:
-            der = punto_medio - 1
-
-        print(f'Punto medio: {punto_medio}')
-
-
-    return izq
-
-
-
-def add_in_order(arreglo, valor):
-    pos = busqueda_binaria(arreglo,valor)
-    arreglo.insert(pos,valor)
-
-
-arreglo = [1, 3, 5, 7, 9, 11, 13, 15]
-
-add_in_order(arreglo, 10)
-
-print(arreglo)
+for letra in palabra_a_enmascarar:
+    contador += 1
+    if contador == 1 or contador == longitud_palabra:
+        palabra_enmascarada += letra
+    else:
+        palabra_enmascarada += '*'
 
 
 
 
 
+print(f'La palabra enmascarada es: {palabra_enmascarada}')
