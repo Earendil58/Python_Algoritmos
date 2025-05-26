@@ -1,19 +1,13 @@
-#Diseña un programa que, dado un número entero, determine si este es el doble de un número impar. (Ejemplo: 14 es el doble de 7, que es impar).
+numero_uno = int(input("Digite el primer numero: "))
+numero_dos = int(input("Digite el segundo numero: "))
 
-numero = float(input("Digite um numero: "))
+cuadrado_del_primero = numero_uno ** 2
 
-if not numero.is_integer():
-    print("El número ingresado no es entero.")
+if cuadrado_del_primero == numero_dos:
+    print(f"El segundo numero {numero_dos} es el cuadrado del primer numero {numero_uno}")
 
-if numero % 2 == 0:
-    if (numero // 2) % 2 != 0:
-        print(f"El número {numero} es el doble de impar")
-
-    elif (numero // 2) % 2 == 0:
-        print(f'El número {numero} es par pero no es doble de impar')
+elif cuadrado_del_primero < numero_dos:
+    print(f'El cuadrado del primero es menor al segundo numero {numero_dos}')
 
 else:
-    print(f'El número {numero} es impar')
-
-
-
+    print(f'El cuadrado del primero es mayor al segundo numero {numero_dos}')
