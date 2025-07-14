@@ -34,8 +34,8 @@ else:
         menor = primer_numero
 
 
-if primer_numero / segundo_numero == tercer_numero:
-    print(f'El tercer número {tercer_numero}, es la división del primer número y el segundo')
+if menor == mayor % medio:
+    print(f'El menor número {menor}, es el resto de la división del mayor y el del medio')
 
 
 print(f'''El orden de los números es: 
