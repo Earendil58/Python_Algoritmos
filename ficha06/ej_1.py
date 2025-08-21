@@ -6,46 +6,45 @@
 
 from typing import Literal
 
-tipo_validez = Literal['descuento', 'sin descuento']
+Tipo_Descuento = Literal['descuento', 'sin descuento']
 VALIDOS = {'descuento', 'sin descuento'}
 
-def calculo_cine(cant_espectadores, descuento):
+def calcular_recaudacion(cant_espectadores: int, descuento: Tipo_Descuento) -> int:
     VALOR_ENTRADA_SIN_DESCUENTO = 75
     VALOR_ENTRADA_CON_DESCUENTO = 50
-    calculo_recaudacion = 0
-
 
     if descuento == 'descuento':
         calculo_recaudacion = cant_espectadores * VALOR_ENTRADA_CON_DESCUENTO
     else:
         calculo_recaudacion = cant_espectadores * VALOR_ENTRADA_SIN_DESCUENTO
+
     return calculo_recaudacion
 
 
 def main():
-    cant_de_funciones = int(input('Ingrese la cantidad de funciones: '))
-    recaudación_total_de_funciones = 0
+    recaudacion_total = 0
+    total_funciones = 0
+    funciones_con_descuento = 0
 
-    if cant_de_funciones == 0:
-        print('No hubo funciones')
+    print("Carga de funciones (0 espectadores para terminar):")
+    while True:
+        espectadores = int(input("Cantidad de espectadores: "))
+        if espectadores == 0:
+            break
 
-    else:
-        for funcion in range(cant_de_funciones):
-            cantidad_de_espectadores = int(input('Ingrese cant de espectadores: '))
-            while True:
-                descuento : tipo_validez = (input('La función tiene descuento (descuento/sin descuento)? :').strip().lower())
-                if descuento in VALIDOS:
-                    break
-                print("Tipo inválido, intenta otra vez (descuento/sin descuento)")
+        descuento = input("La función tiene descuento (descuento/sin descuento)? ").strip().lower()
 
-            recaudación_total_de_funciones += calculo_cine(cantidad_de_espectadores, descuento)
+        recaudacion_total += calcular_recaudacion(espectadores, descuento)
+        total_funciones += 1
+        if descuento == "descuento":
+            funciones_con_descuento += 1
 
-        print(f'La recaudacion total de las funciones realizadas fue de ${recaudación_total_de_funciones}')
-
-
-
-
+    # Resultados
+    print(f"\nRecaudación total: ${recaudacion_total}")
+    if total_funciones > 0:
+        porcentaje = funciones_con_descuento * 100 / total_funciones
+        print(f"Funciones con descuento: {funciones_con_descuento} de {total_funciones} "
+              f"({porcentaje:.2f}%)")
 
 if __name__ == "__main__":
     main()
-
